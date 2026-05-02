@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#1F3D2B" />
+
+  <!-- SEO -->
+  <title>Sorria Instituto Odontológico | Odontopediatria e Ortodontia em Brasília</title>
+  <meta name="description" content="Clínica odontológica premium em Brasília. Especialistas em Odontopediatria e Ortodontia. Dra. Helena Pavanelli, +30 anos de experiência. Agende sua avaliação." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://sorriaodontologia.com.br/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://sorriaodontologia.com.br/" />
+  <meta property="og:title" content="Sorria Instituto Odontológico | Odontopediatria e Ortodontia em Brasília" />
+  <meta property="og:description" content="Clínica odontológica premium em Brasília. Especialistas em Odontopediatria e Ortodontia. Dra. Helena Pavanelli, +30 anos de experiência." />
+  <meta property="og:image" content="https://sorriaodontologia.com.br/assets/images/og-image.jpg" /><!-- SUBSTITUIR: imagem OG 1200x630px -->
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Sorria Instituto Odontológico" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Sorria Instituto Odontológico" />
+  <meta name="twitter:description" content="Odontopediatria e Ortodontia premium em Brasília/DF." />
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Dentist",
+    "name": "Sorria Instituto Odontológico",
+    "description": "Clínica odontológica especializada em Odontopediatria e Ortodontia em Brasília/DF. Dra. Helena Pavanelli, +30 anos de experiência.",
+    "url": "https://sorriaodontologia.com.br",
+    "telephone": "+556137973006",
+    "email": "contato@sorriaodontologia.com.br",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Centro Clínico Sudoeste",
+      "addressLocality": "Brasília",
+      "addressRegion": "DF",
+      "postalCode": "70675-000",
+      "addressCountry": "BR"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "-15.7942",
+      "longitude": "-47.9292"
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+        "opens": "08:00",
+        "closes": "18:00"
+      }
+    ],
+    "medicalSpecialty": ["Odontopediatria", "Ortodontia"],
+    "image": "https://sorriaodontologia.com.br/assets/images/og-image.jpg",
+    "priceRange": "$$"
+  }
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===== OVERLAY MENU MOBILE ===== -->
+  <div class="menu-overlay" id="menuOverlay" role="presentation"></div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header" id="header" role="banner">
+    <div class="container header__inner">
+      <a href="#inicio" class="header__logo" aria-label="Sorria Instituto Odontológico — página inicial">
+        <!-- SUBSTITUIR: inserir arquivo logo-sorria.png em assets/images/ — versão "sobre cor institucional" do manual de identidade visual -->
+        <img src="assets/images/logo-sorria.png" alt="Sorria Instituto Odontológico" class="header__logo-img" loading="lazy">
+      </a>
+
+      <nav class="header__nav" id="mainNav" role="navigation" aria-label="Menu principal">
+        <ul class="header__nav-list" role="list">
+          <li><a href="#inicio" class="header__nav-link" data-section="inicio">Início</a></li>
+          <li><a href="#guias" class="header__nav-link" data-section="guias">Guia Pós-Atendimento</a></li>
+          <li><a href="#contato" class="header__nav-link" data-section="contato">Contato</a></li>
+          <li><a href="#localizacao" class="header__nav-link" data-section="localizacao">Localização</a></li>
+        </ul>
+      </nav>
+
+      <div class="header__actions">
+        <a
+          href="https://wa.me/5561981118014?text=Olá!%20Gostaria%20de%20agendar%20uma%20avaliação%20na%20Sorria%20Instituto%20Odontológico."
+          class="btn btn--primary btn--sm"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Agendar avaliação pelo WhatsApp"
+        ><!-- SUBSTITUIR: número WhatsApp -->
+          Agendar Avaliação
+        </a>
+        <button
+          class="header__hamburger"
+          id="hamburgerBtn"
+          aria-label="Abrir menu"
+          aria-expanded="false"
+          aria-controls="mainNav"
+        >
+          <span class="hamburger__line"></span>
+          <span class="hamburger__line"></span>
+          <span class="hamburger__line"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <!-- ===== 1. HERO ===== -->
+    <section class="hero" id="inicio" aria-label="Apresentação da clínica">
+      <div class="hero__bg" role="img" aria-label="Interior moderno da Sorria Instituto Odontológico">
+        <!-- SUBSTITUIR: imagem hero da clínica ou da doutora, 1920x1080px mínimo -->
+      </div>
+      <div class="hero__overlay"></div>
+      <div class="container hero__content">
+        <p class="hero__eyebrow">Sorria Instituto Odontológico</p>
+        <h1 class="hero__headline">O cuidado que transforma sorrisos.<br><em>Por gerações.</em></h1>
+        <p class="hero__subheadline">
+          Odontopediatria humanizada e Ortodontia de alto padrão —<br class="hide-mobile">
+          para crianças e adultos que merecem o melhor.
+        </p>
+        <div class="hero__ctas">
+          <a
+            href="https://wa.me/5561981118014?text=Olá!%20Gostaria%20de%20agendar%20uma%20avaliação%20na%20Sorria%20Instituto%20Odontológico."
+            class="btn btn--primary btn--lg"
+            target="_blank"
+            rel="noopener noreferrer"
+          ><!-- SUBSTITUIR: número WhatsApp -->
+            <i data-lucide="message-circle" aria-hidden="true"></i>
+            Agendar Avaliação pelo WhatsApp
+          </a>
+          <a href="#especialidades" class="btn btn--ghost hero__scroll-cta">
+            Conheça a Clínica
+            <i data-lucide="chevron-down" aria-hidden="true"></i>
+          </a>
+        </div>
+        <div class="hero__badges" aria-label="Credenciais da clínica">
+          <div class="hero__badge">
+            <i data-lucide="award" aria-hidden="true"></i>
+            <span>+30 anos de experiência</span>
+          </div>
+          <div class="hero__badge-divider" aria-hidden="true"></div>
+          <div class="hero__badge">
+            <i data-lucide="heart" aria-hidden="true"></i>
+            <span>Odontopediatria</span>
+          </div>
+          <div class="hero__badge-divider" aria-hidden="true"></div>
+          <div class="hero__badge">
+            <i data-lucide="smile" aria-hidden="true"></i>
+            <span>Ortodontia</span>
+          </div>
+          <div class="hero__badge-divider" aria-hidden="true"></div>
+          <div class="hero__badge">
+            <i data-lucide="map-pin" aria-hidden="true"></i>
+            <span>Brasília/DF</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero__scroll-indicator" aria-hidden="true">
+        <span></span>
+      </div>
+    </section>
+
+    <!-- ===== 2. SOBRE A DRA. HELENA ===== -->
+    <section class="about section" id="sobre" aria-labelledby="about-title">
+      <div class="section__divider" aria-hidden="true"></div>
+      <div class="container about__inner">
+        <div class="about__image-wrapper">
+          <div class="about__image-frame">
+            <div class="about__image-placeholder" role="img" aria-label="Foto profissional da Dra. Helena Pavanelli">
+              <!-- SUBSTITUIR: foto profissional da Dra. Helena Pavanelli -->
+              <span>Foto da<br>Dra. Helena</span>
+            </div>
+            <div class="about__image-badge" aria-label="Mais de 30 anos de experiência">
+              <span class="about__badge-number">30+</span>
+              <span class="about__badge-label">anos de<br>experiência</span>
+            </div>
+          </div>
+        </div>
+        <div class="about__content">
+          <p class="section__eyebrow">Sobre a Doutora</p>
+          <h2 class="section__title" id="about-title">
+            Mais de 30 anos cuidando de sorrisos com propósito.
+          </h2>
+          <p class="about__text">
+            Mãe de três filhos, a Dra. Helena Pavanelli sabe o que significa confiar o sorriso de um filho a um profissional. Essa vivência pessoal molda cada atendimento: a escuta genuína, a paciência com as crianças e a parceria transparente com as famílias.
+          </p>
+          <p class="about__text">
+            Com mais de três décadas dedicadas à Odontopediatria e à Ortodontia, a doutora construiu uma reputação sólida em Brasília baseada em resultados reais e relações duradouras com seus pacientes — de geração em geração.
+          </p>
+          <div class="about__cro" aria-label="Registro no Conselho Regional de Odontologia">
+            <i data-lucide="badge-check" aria-hidden="true"></i>
+            <span>CRO-DF <!-- SUBSTITUIR: número do CRO --></span>
+          </div>
+          <ul class="about__formation" aria-label="Formação acadêmica">
+            <li>
+              <i data-lucide="graduation-cap" aria-hidden="true"></i>
+              <!-- SUBSTITUIR: graduação -->
+              Graduação em Odontologia — Universidade de Brasília
+            </li>
+            <li>
+              <i data-lucide="graduation-cap" aria-hidden="true"></i>
+              <!-- SUBSTITUIR: especialização -->
+              Especialização em Odontopediatria — CFO
+            </li>
+            <li>
+              <i data-lucide="graduation-cap" aria-hidden="true"></i>
+              <!-- SUBSTITUIR: especialização ortodontia -->
+              Especialização em Ortodontia — CFO
+            </li>
+            <li>
+              <i data-lucide="graduation-cap" aria-hidden="true"></i>
+              <!-- SUBSTITUIR: outros cursos/formações -->
+              Membro da Associação Brasileira de Odontopediatria
+            </li>
+          </ul>
+          <a
+            href="https://wa.me/5561981118014?text=Olá!%20Gostaria%20de%20agendar%20uma%20consulta%20com%20a%20Dra.%20Helena."
+            class="btn btn--secondary"
+            target="_blank"
+            rel="noopener noreferrer"
+          ><!-- SUBSTITUIR: número WhatsApp -->
+            <i data-lucide="calendar" aria-hidden="true"></i>
+            Agendar com a Dra. Helena
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 3. ESPECIALIDADES ===== -->
+    <section class="especialidades section section--alt" id="especialidades" aria-labelledby="especialidades-title">
+      <div class="section__divider" aria-hidden="true"></div>
+      <div class="container">
+        <div class="section__header">
+          <p class="section__eyebrow">Nossas Especialidades</p>
+          <h2 class="section__title" id="especialidades-title">Cuidado completo para toda a família</h2>
+          <p class="section__subtitle">Do primeiro dentinho ao sorriso perfeito do adulto, a Sorria está com você em cada etapa.</p>
+        </div>
+        <div class="especialidades__grid">
+
+          <!-- Card Odontopediatria -->
+          <article class="especialidade-card glass-card" aria-labelledby="odonto-title">
+            <div class="especialidade-card__icon-wrap" aria-hidden="true">
+              <i data-lucide="baby" class="especialidade-card__icon"></i>
+            </div>
+            <h3 class="especialidade-card__title" id="odonto-title">Dentista infantil?<br><em>Aqui vira aventura.</em></h3>
+            <p class="especialidade-card__desc">
+              Criamos um ambiente lúdico e acolhedor onde as crianças se sentem seguras e até animadas para cuidar dos dentes. Nossa abordagem humanizada transforma o medo em confiança — e a consulta em memória positiva.
+            </p>
+            <ul class="especialidade-card__list" aria-label="Serviços de odontopediatria">
+              <li><i data-lucide="check-circle" aria-hidden="true"></i> Primeira consulta bebê</li>
+              <li><i data-lucide="check-circle" aria-hidden="true"></i> Prevenção e selantes</li>
+              <li><i data-lucide="check-circle" aria-hidden="true"></i> Restaurações estéticas</li>
+              <li><i data-lucide="check-circle" aria-hidden="true"></i> Tratamento de cárie</li>
+              <li><i data-lucide="check-circle" aria-hidden="true"></i> Extrações infantis</li>
+              <li><i data-lucide="check-circle" aria-hidden="true"></i> Orientação de higiene para pais</li>
+            </ul>
+            <a
+              href="https://wa.me/5561981118014?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20Odontopediatria."
+              class="btn btn--secondary btn--sm"
+              target="_blank"
+              rel="noopener noreferrer"
+            ><!-- SUBSTITUIR: número WhatsApp -->
+              Saiba mais
+              <i data-lucide="arrow-right" aria-hidden="true"></i>
+            </a>
+          </article>
+
+          <!-- Card Ortodontia -->
+          <article class="especialidade-card glass-card" aria-labelledby="orto-title">
+            <div class="especialidade-card__icon-wrap" aria-hidden="true">
+              <i data-lucide="smile" class="especialidade-card__icon"></i>
+            </div>
+            <h3 class="especialidade-card__title" id="orto-title">Alinhamento preciso.<br><em>Resultado que transforma.</em></h3>
+            <p class="especialidade-card__desc">
+              Com diagnóstico moderno e opções que se adaptam ao seu estilo de vida, o tratamento ortodôntico na Sorria une tecnologia de ponta e expertise clínica para entregar o sorriso que você sempre quis — com conforto e eficiência.
+            </p>
+            <ul class="especialidade-card__list" aria-label="Serviços de ortodontia">
+              <li><i data-lucide="check-circle" aria-hidden="true"></i> Aparelho metálico convencional</li>
+              <li><i data-lucide="check-circle" aria-hidden="true"></i> Aparelho estético (cerâmico)</li>
+              <li><i data-lucide="check-circle" aria-hidden="true"></i> Alinhadores invisíveis</li>
+              <li><i data-lucide="check-circle" aria-hidden="true"></i> Ortodontia interceptiva</li>
+              <li><i data-lucide="check-circle" aria-hidden="true"></i> Contenção pós-tratamento</li>
+              <li><i data-lucide="check-circle" aria-hidden="true"></i> Expansor palatino</li>
+            </ul>
+            <a
+              href="https://wa.me/5561981118014?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20Ortodontia."
+              class="btn btn--secondary btn--sm"
+              target="_blank"
+              rel="noopener noreferrer"
+            ><!-- SUBSTITUIR: número WhatsApp -->
+              Saiba mais
+              <i data-lucide="arrow-right" aria-hidden="true"></i>
+            </a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 4. TECNOLOGIA E DIFERENCIAIS ===== -->
+    <section class="tecnologia section" id="tecnologia" aria-labelledby="tecnologia-title">
+      <div class="section__divider" aria-hidden="true"></div>
+      <div class="container">
+        <div class="section__header">
+          <p class="section__eyebrow">Nossos Diferenciais</p>
+          <h2 class="section__title" id="tecnologia-title">Tecnologia a serviço do seu sorriso</h2>
+          <p class="section__subtitle">Investimos constantemente em equipamentos modernos e capacitação para oferecer o que há de melhor.</p>
+        </div>
+        <div class="tecnologia__grid">
+
+          <article class="tec-card glass-card" aria-labelledby="tec1-title">
+            <div class="tec-card__icon" aria-hidden="true"><i data-lucide="syringe"></i></div>
+            <h3 class="tec-card__title" id="tec1-title">Anestesia Eletrônica</h3>
+            <p class="tec-card__desc">Fluxo controlado e indolor — máximo conforto sem agulha tradicional.</p>
+          </article>
+
+          <article class="tec-card glass-card" aria-labelledby="tec2-title">
+            <div class="tec-card__icon" aria-hidden="true"><i data-lucide="scan"></i></div>
+            <h3 class="tec-card__title" id="tec2-title">Scanner Intraoral 3D</h3>
+            <p class="tec-card__desc">Sem massa de moldagem — rápido, preciso e confortável para o paciente.</p>
+          </article>
+
+          <article class="tec-card glass-card" aria-labelledby="tec3-title">
+            <div class="tec-card__icon" aria-hidden="true"><i data-lucide="camera"></i></div>
+            <h3 class="tec-card__title" id="tec3-title">Câmera Intraoral HD</h3>
+            <p class="tec-card__desc">Você vê tudo em tempo real — explicação com imagens durante a consulta.</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 5. GALERIA DA CLÍNICA ===== -->
+    <section class="galeria section section--alt" id="galeria" aria-labelledby="galeria-title">
+      <div class="section__divider" aria-hidden="true"></div>
+      <div class="container">
+        <div class="section__header">
+          <p class="section__eyebrow">Nossa Clínica</p>
+          <h2 class="section__title" id="galeria-title">Conheça nosso espaço</h2>
+          <p class="section__subtitle">Um ambiente pensado para que você e sua família se sintam acolhidos desde a entrada.</p>
+        </div>
+      </div>
+
+      <!-- DESKTOP: grid -->
+      <div class="galeria__grid-wrap container" aria-label="Fotos da clínica">
+        <div class="galeria__grid">
+          <div class="galeria__item" tabindex="0" role="img" aria-label="Recepção da clínica">
+            <div class="galeria__placeholder"><!-- SUBSTITUIR: foto da recepção --><span>Recepção</span></div>
+            <div class="galeria__overlay" aria-hidden="true"><span>Recepção</span></div>
+          </div>
+          <div class="galeria__item" tabindex="0" role="img" aria-label="Sala de atendimento infantil">
+            <div class="galeria__placeholder"><!-- SUBSTITUIR: sala infantil --><span>Sala Infantil</span></div>
+            <div class="galeria__overlay" aria-hidden="true"><span>Sala Infantil</span></div>
+          </div>
+          <div class="galeria__item" tabindex="0" role="img" aria-label="Consultório principal">
+            <div class="galeria__placeholder"><!-- SUBSTITUIR: consultório --><span>Consultório</span></div>
+            <div class="galeria__overlay" aria-hidden="true"><span>Consultório</span></div>
+          </div>
+          <div class="galeria__item" tabindex="0" role="img" aria-label="Área de espera">
+            <div class="galeria__placeholder"><!-- SUBSTITUIR: área de espera --><span>Área de Espera</span></div>
+            <div class="galeria__overlay" aria-hidden="true"><span>Área de Espera</span></div>
+          </div>
+          <div class="galeria__item" tabindex="0" role="img" aria-label="Equipamentos modernos">
+            <div class="galeria__placeholder"><!-- SUBSTITUIR: equipamentos --><span>Equipamentos</span></div>
+            <div class="galeria__overlay" aria-hidden="true"><span>Equipamentos</span></div>
+          </div>
+          <div class="galeria__item" tabindex="0" role="img" aria-label="Fachada da clínica">
+            <div class="galeria__placeholder"><!-- SUBSTITUIR: fachada --><span>Fachada</span></div>
+            <div class="galeria__overlay" aria-hidden="true"><span>Fachada</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MOBILE: carrossel -->
+      <div class="carousel galeria__carousel" id="galeriaCarousel" aria-label="Carrossel de fotos da clínica" role="region">
+        <div class="carousel__track" id="galeriaTrack">
+          <div class="carousel__slide">
+            <div class="galeria__placeholder"><span>Recepção</span></div>
+          </div>
+          <div class="carousel__slide">
+            <div class="galeria__placeholder"><span>Sala Infantil</span></div>
+          </div>
+          <div class="carousel__slide">
+            <div class="galeria__placeholder"><span>Consultório</span></div>
+          </div>
+          <div class="carousel__slide">
+            <div class="galeria__placeholder"><span>Área de Espera</span></div>
+          </div>
+          <div class="carousel__slide">
+            <div class="galeria__placeholder"><span>Equipamentos</span></div>
+          </div>
+          <div class="carousel__slide">
+            <div class="galeria__placeholder"><span>Fachada</span></div>
+          </div>
+        </div>
+        <div class="carousel__dots" id="galeriaDots" role="tablist" aria-label="Navegação do carrossel"></div>
+      </div>
+    </section>
+
+    <!-- ===== 6. CONVÊNIOS ===== -->
+    <section class="convenios section" id="convenios" aria-labelledby="convenios-title">
+      <div class="section__divider" aria-hidden="true"></div>
+      <div class="container">
+        <div class="section__header">
+          <p class="section__eyebrow">Convênios</p>
+          <h2 class="section__title" id="convenios-title">Atendemos os principais convênios</h2>
+          <p class="section__subtitle">Consulte condições e cobertura para seu plano.</p>
+        </div>
+        <div class="convenios__grid" aria-label="Lista de convênios aceitos">
+          <div class="convenio-item glass-card" aria-label="Plan-Assiste">
+            <!-- SUBSTITUIR: adicionar logo oficial do convênio quando disponível -->
+            <span>Plan-Assiste</span>
+          </div>
+          <div class="convenio-item glass-card" aria-label="STJ">
+            <!-- SUBSTITUIR: adicionar logo oficial do convênio quando disponível -->
+            <span>STJ</span>
+          </div>
+          <div class="convenio-item glass-card" aria-label="STF">
+            <!-- SUBSTITUIR: adicionar logo oficial do convênio quando disponível -->
+            <span>STF</span>
+          </div>
+          <div class="convenio-item glass-card" aria-label="SIS/Senado">
+            <!-- SUBSTITUIR: adicionar logo oficial do convênio quando disponível -->
+            <span>SIS/Senado</span>
+          </div>
+          <div class="convenio-item glass-card" aria-label="Bacen">
+            <!-- SUBSTITUIR: adicionar logo oficial do convênio quando disponível -->
+            <span>Bacen</span>
+          </div>
+        </div>
+        <div class="convenios__cta">
+          <a
+            href="https://wa.me/5561981118014?text=Olá!%20Gostaria%20de%20verificar%20se%20meu%20convênio%20é%20aceito%20na%20Sorria."
+            class="btn btn--primary"
+            target="_blank"
+            rel="noopener noreferrer"
+          ><!-- SUBSTITUIR: número WhatsApp -->
+            <i data-lucide="message-circle" aria-hidden="true"></i>
+            Verificar meu convênio pelo WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 7. DEPOIMENTOS ===== -->
+    <section class="depoimentos section section--alt" id="depoimentos" aria-labelledby="depoimentos-title">
+      <div class="section__divider" aria-hidden="true"></div>
+      <div class="container">
+        <div class="section__header">
+          <p class="section__eyebrow">Depoimentos</p>
+          <h2 class="section__title" id="depoimentos-title">O que dizem nossas famílias</h2>
+        </div>
+      </div>
+
+      <div class="carousel depoimentos__carousel" id="depoimentosCarousel" aria-label="Carrossel de depoimentos" role="region">
+        <div class="carousel__track" id="depoimentosTrack">
+
+          <article class="carousel__slide depoimento-card glass-card" aria-label="Depoimento de Ana Clara Mendonça">
+            <div class="depoimento-card__stars" aria-label="5 estrelas">
+              <i data-lucide="star" aria-hidden="true"></i>
+              <i data-lucide="star" aria-hidden="true"></i>
+              <i data-lucide="star" aria-hidden="true"></i>
+              <i data-lucide="star" aria-hidden="true"></i>
+              <i data-lucide="star" aria-hidden="true"></i>
+            </div>
+            <blockquote class="depoimento-card__text">
+              "Minha filha tinha muito medo de dentista. Depois da primeira consulta com a Dra. Helena, ela saiu perguntando quando voltaria! O ambiente é incrível e a doutora tem um jeito único de lidar com crianças."
+            </blockquote>
+            <div class="depoimento-card__author">
+              <div class="depoimento-card__avatar" aria-hidden="true"><!-- SUBSTITUIR: foto de Ana Clara --><span>AC</span></div>
+              <div class="depoimento-card__info">
+                <strong>Ana Clara Mendonça</strong><!-- SUBSTITUIR: depoimento real -->
+                <span>Mãe da paciente Sofia, 6 anos — Odontopediatria</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="carousel__slide depoimento-card glass-card" aria-label="Depoimento de Rodrigo Alves">
+            <div class="depoimento-card__stars" aria-label="5 estrelas">
+              <i data-lucide="star" aria-hidden="true"></i>
+              <i data-lucide="star" aria-hidden="true"></i>
+              <i data-lucide="star" aria-hidden="true"></i>
+              <i data-lucide="star" aria-hidden="true"></i>
+              <i data-lucide="star" aria-hidden="true"></i>
+            </div>
+            <blockquote class="depoimento-card__text">
+              "Dois anos de tratamento ortodôntico e o resultado superou todas as expectativas. A Dra. Helena é extremamente profissional, sempre explica cada etapa e o atendimento é impecável. Recomendo sem hesitar."
+            </blockquote>
+            <div class="depoimento-card__author">
+              <div class="depoimento-card__avatar" aria-hidden="true"><!-- SUBSTITUIR: foto de Rodrigo --><span>RA</span></div>
+              <div class="depoimento-card__info">
+                <strong>Rodrigo Alves</strong><!-- SUBSTITUIR: depoimento real -->
+                <span>Paciente adulto — Ortodontia com aparelho metálico</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="carousel__slide depoimento-card glass-card" aria-label="Depoimento de Fernanda Costa">
+            <div class="depoimento-card__stars" aria-label="5 estrelas">
+              <i data-lucide="star" aria-hidden="true"></i>
+              <i data-lucide="star" aria-hidden="true"></i>
+              <i data-lucide="star" aria-hidden="true"></i>
+              <i data-lucide="star" aria-hidden="true"></i>
+              <i data-lucide="star" aria-hidden="true"></i>
+            </div>
+            <blockquote class="depoimento-card__text">
+              "Levei meus três filhos para a Sorria e sou paciente da Dra. Helena há mais de 10 anos. Ela cuida de toda a família com o mesmo carinho e dedicação. É difícil encontrar uma clínica assim em Brasília."
+            </blockquote>
+            <div class="depoimento-card__author">
+              <div class="depoimento-card__avatar" aria-hidden="true"><!-- SUBSTITUIR: foto de Fernanda --><span>FC</span></div>
+              <div class="depoimento-card__info">
+                <strong>Fernanda Costa</strong><!-- SUBSTITUIR: depoimento real -->
+                <span>Paciente há 10 anos — Odontopediatria e Ortodontia</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="carousel__slide depoimento-card glass-card" aria-label="Depoimento de Marcos Oliveira">
+            <div class="depoimento-card__stars" aria-label="5 estrelas">
+              <i data-lucide="star" aria-hidden="true"></i>
+              <i data-lucide="star" aria-hidden="true"></i>
+              <i data-lucide="star" aria-hidden="true"></i>
+              <i data-lucide="star" aria-hidden="true"></i>
+              <i data-lucide="star" aria-hidden="true"></i>
+            </div>
+            <blockquote class="depoimento-card__text">
+              "Iniciei o tratamento com alinhadores invisíveis e estou encantado com a discrição e os resultados. A Dra. Helena foi muito didática nas explicações e o acompanhamento é constante. Vale cada centavo."
+            </blockquote>
+            <div class="depoimento-card__author">
+              <div class="depoimento-card__avatar" aria-hidden="true"><!-- SUBSTITUIR: foto de Marcos --><span>MO</span></div>
+              <div class="depoimento-card__info">
+                <strong>Marcos Oliveira</strong><!-- SUBSTITUIR: depoimento real -->
+                <span>Paciente adulto — Alinhadores invisíveis</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <div class="carousel__controls">
+          <button class="carousel__btn" id="depoimentosPrev" aria-label="Depoimento anterior">
+            <i data-lucide="chevron-left" aria-hidden="true"></i>
+          </button>
+          <div class="carousel__dots" id="depoimentosDots" role="tablist" aria-label="Navegação de depoimentos"></div>
+          <button class="carousel__btn" id="depoimentosNext" aria-label="Próximo depoimento">
+            <i data-lucide="chevron-right" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 8. FAQ ===== -->
+    <section class="faq section" id="faq" aria-labelledby="faq-title">
+      <div class="section__divider" aria-hidden="true"></div>
+      <div class="container">
+        <div class="section__header">
+          <p class="section__eyebrow">Perguntas Frequentes</p>
+          <h2 class="section__title" id="faq-title">Tire suas dúvidas</h2>
+        </div>
+        <div class="faq__list" id="faqList" role="list">
+
+          <div class="faq__item" role="listitem">
+            <button class="faq__question" aria-expanded="false" aria-controls="faq-answer-1">
+              <span>A partir de qual idade devo levar meu filho ao dentista?</span>
+              <i data-lucide="plus" class="faq__icon" aria-hidden="true"></i>
+            </button>
+            <div class="faq__answer" id="faq-answer-1" hidden>
+              <p>A recomendação da Associação Brasileira de Odontopediatria é que a primeira consulta aconteça assim que o primeiro dentinho erupcionar, geralmente entre 6 e 12 meses de idade. Essa consulta tem caráter preventivo e também serve para orientar os pais sobre higiene bucal e hábitos saudáveis.</p>
+            </div>
+          </div>
+
+          <div class="faq__item" role="listitem">
+            <button class="faq__question" aria-expanded="false" aria-controls="faq-answer-2">
+              <span>Qual a diferença entre aparelho metálico, cerâmico e alinhadores?</span>
+              <i data-lucide="plus" class="faq__icon" aria-hidden="true"></i>
+            </button>
+            <div class="faq__answer" id="faq-answer-2" hidden>
+              <p>O <strong>aparelho metálico</strong> é o mais tradicional, mais robusto e geralmente mais acessível. O <strong>aparelho cerâmico</strong> funciona da mesma forma, mas com bráquetes na cor dos dentes, sendo muito mais discreto. Já os <strong>alinhadores invisíveis</strong> são placas removíveis, praticamente invisíveis, ideais para quem precisa de praticidade e estética — porém exigem disciplina no uso. A melhor opção depende do seu caso clínico e estilo de vida. A Dra. Helena avaliará e indicará o mais adequado para você.</p>
+            </div>
+          </div>
+
+          <div class="faq__item" role="listitem">
+            <button class="faq__question" aria-expanded="false" aria-controls="faq-answer-3">
+              <span>Vocês aceitam convênios? Como faço para verificar?</span>
+              <i data-lucide="plus" class="faq__icon" aria-hidden="true"></i>
+            </button>
+            <div class="faq__answer" id="faq-answer-3" hidden>
+              <p>Sim, atendemos os principais convênios odontológicos. Para verificar se o seu plano está na lista e quais procedimentos estão cobertos, entre em contato pelo WhatsApp. Nossa equipe fará a verificação rapidamente e já te informará sobre a documentação necessária para o atendimento.</p>
+            </div>
+          </div>
+
+          <div class="faq__item" role="listitem">
+            <button class="faq__question" aria-expanded="false" aria-controls="faq-answer-4">
+              <span>Quanto tempo dura um tratamento ortodôntico?</span>
+              <i data-lucide="plus" class="faq__icon" aria-hidden="true"></i>
+            </button>
+            <div class="faq__answer" id="faq-answer-4" hidden>
+              <p>A duração varia conforme a complexidade do caso. Em geral, tratamentos ortodônticos convencionais levam entre 18 meses e 3 anos. Casos mais simples com alinhadores podem ser concluídos em 6 a 12 meses. Após o tratamento, é fundamental usar a contenção (placa ou fio fixo) para manter o resultado alcançado.</p>
+            </div>
+          </div>
+
+          <div class="faq__item" role="listitem">
+            <button class="faq__question" aria-expanded="false" aria-controls="faq-answer-5">
+              <span>O clareamento dental é seguro? Para quem é indicado?</span>
+              <i data-lucide="plus" class="faq__icon" aria-hidden="true"></i>
+            </button>
+            <div class="faq__answer" id="faq-answer-5" hidden>
+              <p>Sim, quando realizado por um profissional e com o protocolo adequado, o clareamento dental é seguro e eficaz. É indicado para pacientes maiores de 16 anos, sem cáries ativas ou restaurações defeituosas nos dentes a serem clareados. Grávidas e lactantes devem aguardar. A sensibilidade transitória é normal e geralmente desaparece em 24-48h após o procedimento.</p>
+            </div>
+          </div>
+
+          <div class="faq__item" role="listitem">
+            <button class="faq__question" aria-expanded="false" aria-controls="faq-answer-6">
+              <span>Como agendar uma consulta? Preciso de encaminhamento?</span>
+              <i data-lucide="plus" class="faq__icon" aria-hidden="true"></i>
+            </button>
+            <div class="faq__answer" id="faq-answer-6" hidden>
+              <p>Não precisa de encaminhamento! Basta entrar em contato pelo WhatsApp ou telefone e nossa equipe encontrará o melhor horário para você. Para a primeira consulta, recomendamos trazer documentos de identidade, carteirinha do convênio (se houver) e, se existirem, radiografias recentes.</p>
+            </div>
+          </div>
+
+          <div class="faq__item" role="listitem">
+            <button class="faq__question" aria-expanded="false" aria-controls="faq-answer-7">
+              <span>O expansor palatino dói? Como funciona?</span>
+              <i data-lucide="plus" class="faq__icon" aria-hidden="true"></i>
+            </button>
+            <div class="faq__answer" id="faq-answer-7" hidden>
+              <p>O expansor palatino é um aparelho fixo utilizado principalmente em crianças para ampliar o palato (céu da boca) e corrigir problemas de espaço antes que o rosto se desenvolva completamente. Nas primeiras semanas pode haver certa sensibilidade e adaptação da fala, mas não costuma causar dor intensa. A ativação é feita pelos próprios pais em casa, com orientação detalhada da Dra. Helena.</p>
+            </div>
+          </div>
+
+          <div class="faq__item" role="listitem">
+            <button class="faq__question" aria-expanded="false" aria-controls="faq-answer-8">
+              <span>Qual o horário de funcionamento da clínica?</span>
+              <i data-lucide="plus" class="faq__icon" aria-hidden="true"></i>
+            </button>
+            <div class="faq__answer" id="faq-answer-8" hidden>
+              <p>Atendemos de segunda a sexta-feira, das 8h às 18h. Para casos urgentes fora deste horário, entre em contato pelo WhatsApp e faremos o possível para auxiliá-lo.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 9. GUIA PÓS-ATENDIMENTO ===== -->
+    <section class="guias section section--alt" id="guias" aria-labelledby="guias-title">
+      <div class="section__divider" aria-hidden="true"></div>
+      <div class="container">
+        <div class="section__header">
+          <p class="section__eyebrow">Pós-Atendimento</p>
+          <h2 class="section__title" id="guias-title">Guias de Cuidados</h2>
+          <p class="section__subtitle">Tudo o que você precisa saber após seu tratamento — com linguagem clara e acessível.</p>
+        </div>
+        <div class="guias__grid" id="guiasGrid" role="list">
+          <!-- Cards gerados via JS em guias.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 10. LOCALIZAÇÃO E CONTATO ===== -->
+    <section class="localizacao section" id="localizacao" aria-labelledby="localizacao-title">
+      <div id="contato" style="position:absolute;top:-80px;" aria-hidden="true"></div>
+      <div class="section__divider" aria-hidden="true"></div>
+      <div class="container">
+        <div class="section__header">
+          <p class="section__eyebrow">Onde Estamos</p>
+          <h2 class="section__title" id="localizacao-title">Fácil de encontrar, difícil de esquecer</h2>
+        </div>
+        <div class="localizacao__inner">
+          <div class="localizacao__info">
+            <div class="localizacao__info-item">
+              <i data-lucide="map-pin" aria-hidden="true"></i>
+              <div>
+                <strong>Endereço</strong>
+                <address>
+                  <!-- SUBSTITUIR: endereço completo -->
+                  Centro Clínico Sudoeste<br>
+                  CLSW 302, Bloco A — Sala 00<br>
+                  Sudoeste, Brasília — DF<br>
+                  CEP: 70675-000
+                </address>
+              </div>
+            </div>
+            <div class="localizacao__info-item">
+              <i data-lucide="phone" aria-hidden="true"></i>
+              <div>
+                <strong>Telefone</strong>
+                <a href="tel:+556137973006">(61) 3797-3006</a>
+              </div>
+            </div>
+            <div class="localizacao__info-item">
+              <i data-lucide="message-circle" aria-hidden="true"></i>
+              <div>
+                <strong>WhatsApp</strong>
+                <a
+                  href="https://wa.me/5561981118014?text=Olá!%20Gostaria%20de%20mais%20informações%20sobre%20a%20Sorria%20Instituto%20Odontológico."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >(61) 98111-8014</a>
+              </div>
+            </div>
+            <div class="localizacao__info-item">
+              <i data-lucide="mail" aria-hidden="true"></i>
+              <div>
+                <strong>E-mail</strong>
+                <a href="mailto:contato@sorriaodontologia.com.br">contato@sorriaodontologia.com.br</a>
+              </div>
+            </div>
+            <div class="localizacao__info-item">
+              <i data-lucide="clock" aria-hidden="true"></i>
+              <div>
+                <strong>Horário de Funcionamento</strong>
+                <p>Segunda a Sexta: 8h às 18h</p>
+              </div>
+            </div>
+            <div class="localizacao__btns">
+              <a
+                href="https://maps.google.com/?q=Centro+Clínico+Sudoeste+Brasília+DF"
+                class="btn btn--secondary"
+                target="_blank"
+                rel="noopener noreferrer"
+              ><!-- SUBSTITUIR: link Google Maps com endereço real -->
+                <i data-lucide="navigation" aria-hidden="true"></i>
+                Como chegar
+              </a>
+              <a
+                href="https://wa.me/5561981118014?text=Olá!%20Gostaria%20de%20agendar%20uma%20consulta."
+                class="btn btn--primary"
+                target="_blank"
+                rel="noopener noreferrer"
+              ><!-- SUBSTITUIR: número WhatsApp -->
+                <i data-lucide="message-circle" aria-hidden="true"></i>
+                Falar pelo WhatsApp
+              </a>
+            </div>
+          </div>
+          <div class="localizacao__mapa">
+            <iframe
+              title="Mapa de localização da Sorria Instituto Odontológico"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3838.8!2d-47.9292!3d-15.7942!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sSorria%20Instituto%20Odontol%C3%B3gico!5e0!3m2!1spt-BR!2sbr!4v0"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              aria-label="Mapa do Google com localização da clínica"
+            ><!-- SUBSTITUIR: iframe completo do Google Maps com endereço real da clínica --></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer__divider" aria-hidden="true"></div>
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a href="#inicio" class="footer__logo" aria-label="Sorria Instituto Odontológico — voltar ao início">
+          <!-- SUBSTITUIR: inserir arquivo logo-sorria.png em assets/images/ — versão "sobre cor institucional" do manual de identidade visual -->
+          <img src="assets/images/logo-sorria.png" alt="Sorria Instituto Odontológico" class="footer__logo-img" loading="lazy">
+        </a>
+        <p class="footer__tagline">Cuidando de sorrisos por gerações em Brasília/DF.</p>
+        <div class="footer__social" aria-label="Redes sociais">
+          <a href="https://instagram.com/sorriaodontologia" class="footer__social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram da Sorria"><!-- SUBSTITUIR: link Instagram real -->
+            <i data-lucide="instagram" aria-hidden="true"></i>
+          </a>
+          <a href="https://facebook.com/sorriaodontologia" class="footer__social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook da Sorria"><!-- SUBSTITUIR: link Facebook real -->
+            <i data-lucide="facebook" aria-hidden="true"></i>
+          </a>
+        </div>
+        <p class="footer__cro">
+          <i data-lucide="badge-check" aria-hidden="true"></i>
+          Dra. Helena Pavanelli — CRO-DF <!-- SUBSTITUIR: número CRO -->
+        </p>
+      </div>
+
+      <nav class="footer__nav" aria-label="Links rápidos">
+        <h3 class="footer__nav-title">Links rápidos</h3>
+        <ul role="list">
+          <li><a href="#inicio">Início</a></li>
+          <li><a href="#guias">Guia Pós-Atendimento</a></li>
+          <li><a href="#contato">Contato</a></li>
+          <li><a href="#localizacao">Localização</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer__contact" aria-label="Informações de contato">
+        <h3 class="footer__nav-title">Contato</h3>
+        <ul role="list">
+          <li>
+            <i data-lucide="map-pin" aria-hidden="true"></i>
+            <address>Centro Clínico Sudoeste, Brasília/DF<!-- SUBSTITUIR: endereço completo --></address>
+          </li>
+          <li>
+            <i data-lucide="phone" aria-hidden="true"></i>
+            <a href="tel:+556137973006">(61) 3797-3006</a>
+          </li>
+          <li>
+            <i data-lucide="mail" aria-hidden="true"></i>
+            <a href="mailto:contato@sorriaodontologia.com.br">contato@sorriaodontologia.com.br</a>
+          </li>
+          <li>
+            <i data-lucide="clock" aria-hidden="true"></i>
+            <span>Seg–Sex: 8h–18h</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <div class="container footer__bottom-inner">
+        <p class="footer__legal">As informações deste site têm caráter educativo e não substituem a consulta com um profissional de saúde.</p>
+        <p class="footer__copyright">© 2026 Sorria Instituto Odontológico. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== BOTÃO FLUTUANTE WHATSAPP ===== -->
+  <a
+    href="https://wa.me/5561981118014?text=Olá!%20Vim%20pelo%20site%20e%20gostaria%20de%20mais%20informações."
+    class="whatsapp-float"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Falar pelo WhatsApp"
+    role="button"
+  >
+    <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg" width="28" height="28" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+    </svg>
+    <span class="whatsapp-float__tooltip">Agende pelo WhatsApp</span>
+  </a>
+
+  <!-- ===== MODAL GUIAS (container) ===== -->
+  <div
+    class="modal-overlay"
+    id="guiaModalOverlay"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="guiaModalTitle"
+    hidden
+  >
+    <div class="modal" id="guiaModal">
+      <div class="modal__header">
+        <div class="modal__header-text">
+          <span class="modal__eyebrow" id="guiaModalCategory"></span>
+          <h2 class="modal__title" id="guiaModalTitle"></h2>
+        </div>
+        <button class="modal__close" id="guiaModalClose" aria-label="Fechar guia">
+          <i data-lucide="x" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="modal__body" id="guiaModalBody" tabindex="0">
+        <!-- conteúdo injetado via JS -->
+      </div>
+      <div class="modal__footer">
+        <a
+          href="#"
+          class="btn btn--primary btn--lg"
+          id="guiaWhatsappShare"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Compartilhar este guia pelo WhatsApp"
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+          Compartilhar este Guia pelo WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="js/guias.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    // Inicializa os ícones Lucide
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  </script>
+</body>
+</html>
