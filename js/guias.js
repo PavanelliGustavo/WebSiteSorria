@@ -68,7 +68,7 @@ const GUIAS_DATA = [
   },
   {
     id: 2,
-    icon: 'smile',
+    icon: 'brand:simbolo-adulto-verde.png',
     titulo: 'Guia para Pacientes com Aparelho Ortodôntico',
     descricao: 'Tudo que você precisa saber para manter o aparelho e acelerar o tratamento.',
     categoria: 'Ortodontia',
@@ -507,7 +507,9 @@ function renderGuiaCards() {
       tabindex="0"
     >
       <div class="guia-card__icon-wrap" aria-hidden="true">
-        <i data-lucide="${guia.icon}"></i>
+        ${guia.icon.startsWith('brand:')
+          ? `<img src="assets/images/brand/${guia.icon.slice(6)}" alt="" class="guia-card__icon-img">`
+          : `<i data-lucide="${guia.icon}"></i>`}
       </div>
       <div class="guia-card__content">
         <p class="guia-card__number">Guia 0${guia.id} — ${guia.categoria}</p>
