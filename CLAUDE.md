@@ -49,7 +49,8 @@
 - **Texto de corpo:** `#2A2E27` (contraste 13.8:1 no branco).
 - **Botão primário** (maior destaque, ex. "Agendar Avaliação"): fundo verde escuro, texto branco. **Botão secundário:** borda + texto verde escuro, fundo transparente. Nenhum botão usa fundo dourado.
 - **Dourado** é acento e aparece só em: ícones pequenos (lucide/SVG), sublinhados/divisores decorativos, o `<em>` itálico de destaque nas headlines/títulos de card, hover de links, estrelas de avaliação, bullets dos guias, e o sorriso da logo/símbolos. Nunca em texto de corpo ou títulos.
-- Caixas de ícone (especialidades/tecnologia/guias) usam fundo off-white `#F6F4EF` com borda dourada sutil — combinação pedida explicitamente pela cliente.
+- Caixas de ícone (especialidades/tecnologia) usam fundo off-white `#F6F4EF` com borda dourada sutil — combinação pedida explicitamente pela cliente.
+- Marca d'água decorativa (`simbolo-adulto-verde.png`, opacity 0.05, ~380px, `pointer-events:none`) preenche o vazio lateral de algumas seções **somente em desktop grande (1280px+)** — alterna esquerda/direita entre seções para criar ritmo (sobre→esquerda, tecnologia→direita, depoimentos→esquerda, faq→direita, localização→esquerda, guias.html→esquerda).
 
 > Nota de contraste: dourado `#B8923C` sobre branco mede ~2.9:1 — abaixo de AA mesmo para
 > texto grande. É um trade-off aceito conscientemente pela cliente ("usado com parcimônia"),
@@ -98,32 +99,54 @@
 ```
 SorriaWebSite/
 ├── index.html
-├── css/style.css       (mobile-first, CSS custom properties)
+├── guias.html          (página dedicada aos Guias de Pós-Atendimento — grade 3x3 de capas)
+├── css/style.css       (mobile-first, CSS custom properties, compartilhado pelas 2 páginas)
 ├── js/
-│   ├── main.js         (menu, carrossel, FAQ, animações)
-│   └── guias.js        (9 guias pós-atendimento + modal)
+│   ├── main.js         (menu, carrossel, FAQ, animações — compartilhado pelas 2 páginas)
+│   └── guias.js        (NÃO referenciado em nenhuma página atualmente — mantido só como
+│                         rascunho do conteúdo dos 9 guias, para reaproveitar quando as
+│                         páginas individuais de cada guia forem criadas)
 └── assets/images/      (placeholders — aguardando arquivos reais)
 ```
 
 ## Funcionalidades Implementadas
 - Header fixo, transparente no topo e com fundo branco translúcido + sombra sutil ao rolar
 - Menu hamburger com drawer lateral (mobile, fundo branco) / nav horizontal (desktop)
-- Smooth scroll + indicador de seção ativa (IntersectionObserver)
+- Menu com 3 itens, nesta ordem: **Início** (`#inicio`) / **Contato & Localização** (`#localizacao`
+  — consolida os antigos itens separados "Contato" e "Localização", que já eram a mesma área) /
+  **Guias de Pós-Atendimento** (`guias.html` — página separada, ver abaixo). Mesmo menu no header
+  (desktop+drawer mobile) e nos "Links rápidos" do footer, nas duas páginas.
+- Smooth scroll + indicador de seção ativa (IntersectionObserver) — só atua nos 2 links que têm
+  `data-section` (Início/Contato & Localização); o link de Guias não participa (é outra página).
 - Hero com overlay claro (branco translúcido) + badges de credibilidade
 - Seção Sobre com foto placeholder + badge "30+ anos"
 - 2 cards de especialidades (Odontopediatria / Ortodontia)
 - 3 cards de Tecnologia (Anestesia Eletrônica, Scanner 3D, Câmera HD)
 - Galeria: carrossel touch (mobile) / grid 3 colunas (desktop)
-- Seção de Convênios com 5 cards (Plan-Assiste, STJ, STF, SIS/Senado, Bacen)
-- Carrossel de Depoimentos com autoplay 6s + arrows + swipe
+- Seção de Convênios com 5 cards: **3 na primeira fileira + 2 centralizados na segunda**
+  (flexbox com `flex-wrap` a partir de 768px; no mobile permanece como grid de 3 colunas, sem alteração)
+- Carrossel de Depoimentos com autoplay 6s + arrows + swipe — **4 depoimentos reais** de pacientes
+  (substituíram os 4 fictícios); cards mais largos no desktop (620px, ~2-2.5 visíveis por vez, era
+  480px/~3.5 visíveis) para acomodar textos mais longos; altura uniforme via `align-items:stretch`
+  no track + `height:auto` no card
+- **Página dedicada `guias.html`** com grade 3x3 (3 colunas no desktop / 2 no tablet / 1 no mobile)
+  de 9 "capas" de guias — cada capa é um placeholder no estilo dos placeholders de fotos da
+  clínica, com overlay verde escuro semitransparente sempre visível + número + título em branco
+  centralizados. Cards ainda apontam para `#` (sem conteúdo/página individual por guia ainda).
+  A seção de Guias e o modal de guia que existiam no `index.html` foram removidos de lá.
 - FAQ Accordion (8 perguntas)
-- 9 Guias Pós-Atendimento em modal full-screen
-- Localização com iframe Google Maps + dados de contato
+- Localização com mapa Google + dados de contato
 - Footer completo com Instagram (Facebook foi removido — cliente só usa Instagram)
 - Botão flutuante WhatsApp e todos os CTAs "Falar/Agendar pelo WhatsApp" usam o SVG oficial completo (balão + telefone) — não usar o ícone genérico `message-circle` do Lucide
 - Mapa de Localização com pin/marcador nomeado da clínica (embed por busca `q=`, sem necessidade de API key)
 - Animações fade-up nos cards (IntersectionObserver)
-- SEO: meta tags, OG, Schema.org (Dentist)
+- **Desktop grande (1280px+):** container sobe de 1280px para 1360px, `--section-gap` sobe para
+  140px, e o `html{font-size}` sobe de 16px para 18px (+12.5%) — como quase todo o site usa `rem`,
+  isso escala headlines/subtítulos/corpo proporcionalmente sem precisar editar seletor por
+  seletor, e não afeta mobile/tablet. Marca d'água decorativa do símbolo da marca aparece só
+  nesse breakpoint (ver Identidade Visual).
+- SEO: meta tags, OG, Schema.org (Dentist) — `guias.html` tem meta tags próprias mas sem o
+  Schema.org Dentist duplicado (esse fica só na home).
 
 ## Pontos de Substituição Pendentes
 1. **Foto hero** — `assets/images/hero-bg.jpg`
@@ -133,10 +156,15 @@ SorriaWebSite/
 5. **Endereço completo** — CLSW 302, sala e bloco exatos
 6. **Iframe Google Maps** — substituir com embed correto da clínica
 7. **CRO-DF** — número do CRO da Dra. Helena
-8. **Conteúdo dos guias** — textos profissionais reais (9 guias)
+8. **Conteúdo dos guias** — títulos definitivos, capas/imagens e texto profissional completo dos
+   9 guias em `guias.html` (hoje são só placeholders com `<!-- SUBSTITUIR -->`); os cards ainda
+   não levam a uma página/conteúdo individual por guia — falta decidir e construir esse próximo
+   passo (página por guia? modal? PDF?). `js/guias.js` tem rascunhos de conteúdo de alguns guias
+   que podem ser reaproveitados nessa etapa, mas não está mais conectado a nenhuma página.
 9. **Formação acadêmica** — graduação e especializações reais
 10. **Link do Instagram** — URL real do perfil da clínica
 11. **Place/endereço exato no Google Maps** — assim que a ficha da Sorria no Google Meu Negócio tiver o endereço completo (CLSW 302, sala/bloco), gerar o embed definitivo (Compartilhar > Incorporar mapa, ou place_id) para o pin oficial
+12. **Fotos dos pacientes nos depoimentos** — Ilma Costa Nascimento, Suzana de Albuquerque, Aline Gonçalves Costa Henrique, Milk Alves (hoje usam iniciais em círculo)
 
 ## Copyright
 © 2026 Sorria Instituto Odontológico

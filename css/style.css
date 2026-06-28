@@ -115,9 +115,25 @@ address {
   max-width: var(--container-w);
   margin-inline: auto;
   padding-inline: var(--container-px);
+  position: relative;
 }
 
 .hide-mobile { display: none; }
+
+/* ── MARCA D'ÁGUA LATERAL (apenas desktop grande, 1280px+) ── */
+.section__watermark {
+  display: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 380px;
+  height: 380px;
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 0;
+}
+.section__watermark--left  { left: -120px; }
+.section__watermark--right { right: -120px; }
 
 /* Acessibilidade — foco */
 :focus-visible {
@@ -1215,82 +1231,76 @@ address {
   color: var(--green-dark);
 }
 
-/* ── GUIAS ── */
-.guias__grid {
+/* ── PÁGINA DE GUIAS (guias.html) — grade de capas ── */
+.guias-page {
+  padding-top: calc(68px + var(--section-gap));
+}
+
+.guias-page__header {
+  text-align: center;
+  max-width: 760px;
+  margin-inline: auto;
+  margin-bottom: 52px;
+}
+
+.guias-page__grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 20px;
 }
 
-.guia-card {
-  border-radius: var(--radius-lg);
-  padding: 28px 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+.guia-cover-card {
+  position: relative;
+  display: block;
+  aspect-ratio: 4/3;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-card);
   transition: transform var(--transition), box-shadow var(--transition);
-  cursor: pointer;
 }
-.guia-card:hover {
+.guia-cover-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
-  border-color: rgba(184,146,60,0.4);
 }
 
-.guia-card__icon-wrap {
-  width: 52px;
-  height: 52px;
-  border-radius: var(--radius-sm);
+.guia-cover-card__placeholder {
+  width: 100%;
+  height: 100%;
   background: var(--bg-secondary);
-  border: 1px solid var(--gold-border);
+}
+
+.guia-cover-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(67,82,61,0.55);
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
+  flex-direction: column;
+  gap: 6px;
+  padding: 20px;
+  text-align: center;
+  transition: background var(--transition);
 }
-.guia-card__icon-wrap [data-lucide] {
-  width: 24px;
-  height: 24px;
+.guia-cover-card:hover .guia-cover-card__overlay {
+  background: rgba(67,82,61,0.68);
+}
+
+.guia-cover-card__number {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: var(--gold);
 }
 
-.guia-card__icon-img {
-  width: 28px;
-  height: 28px;
-  object-fit: contain;
-}
-
-.guia-card__content {
-  flex: 1;
-}
-
-.guia-card__number {
-  font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--green-dark);
-  margin-bottom: 6px;
-}
-
-.guia-card__title {
+.guia-cover-card__title {
   font-family: var(--font-display);
-  font-size: 1rem;
+  font-size: clamp(1rem, 2vw, 1.25rem);
   font-weight: 600;
-  color: var(--green-dark);
+  color: #FFFFFF;
   line-height: 1.35;
-  margin-bottom: 8px;
-}
-
-.guia-card__desc {
-  font-size: 0.8125rem;
-  color: var(--text-secondary);
-  line-height: 1.6;
-}
-
-.guia-card .btn {
-  width: 100%;
-  justify-content: center;
 }
 
 /* ── MODAL ── */
@@ -1845,18 +1855,23 @@ address {
     display: none;
   }
 
-  /* Convênios */
+  /* Convênios — 3 na primeira fileira, 2 centralizados na segunda */
   .convenios__grid {
-    grid-template-columns: repeat(4, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .convenio-item {
+    flex: 0 0 calc((100% - 32px) / 3);
   }
 
   /* Depoimentos */
   .depoimento-card {
-    flex: 0 0 420px;
+    flex: 0 0 520px;
   }
 
-  /* Guias */
-  .guias__grid {
+  /* Página de guias */
+  .guias-page__grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -1927,20 +1942,32 @@ address {
     display: none;
   }
 
-  /* Guias */
-  .guias__grid {
+  /* Página de guias: 3x3 */
+  .guias-page__grid {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  /* Depoimentos: mostrar mais */
+  /* Depoimentos: cards mais largos, ~2-2.5 visíveis por vez */
   .depoimento-card {
-    flex: 0 0 480px;
+    flex: 0 0 620px;
   }
 }
 
 @media (min-width: 1280px) {
+  /* Escala geral +12.5% em telas grandes: como a maioria dos tamanhos de fonte
+     do site usa rem, aumentar o root font-size escala headlines, subtítulos e
+     corpo de forma proporcional, sem afetar o mobile/tablet. */
+  html {
+    font-size: 18px;
+  }
   :root {
     --container-px: 60px;
+    --container-w: 1360px;
+    --section-gap: 140px;
+  }
+
+  .section__watermark {
+    display: block;
   }
 }
 

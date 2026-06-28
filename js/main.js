@@ -384,7 +384,7 @@ class Carousel {
     if (window.innerWidth >= 768) {
       const carousel = track.closest('.carousel');
       const carouselWidth = carousel?.offsetWidth || window.innerWidth;
-      const cardWidth = 480;
+      const cardWidth = 620;
       const padding = Math.max(20, (carouselWidth - cardWidth) / 2);
       track.style.paddingInline = `${Math.min(padding, 120)}px`;
     } else {
@@ -396,9 +396,7 @@ class Carousel {
 })();
 
 /* ── RE-INIT LUCIDE APÓS RENDER ─────────────────────────── */
-/* Os guias são renderizados após DOMContentLoaded e o Lucide
-   já é chamado dentro de guias.js. Este bloco garante que
-   quaisquer ícones adicionados dinamicamente sejam inicializados. */
+/* Garante que quaisquer ícones adicionados dinamicamente sejam inicializados. */
 window.addEventListener('load', () => {
   if (typeof lucide !== 'undefined') lucide.createIcons();
 });
