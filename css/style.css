@@ -135,6 +135,26 @@ address {
 .section__watermark--left  { left: -120px; }
 .section__watermark--right { right: -120px; }
 
+/* Marcas d'água de canto, exclusivas do hero — emolduram o conteúdo central */
+.hero__watermark {
+  display: none;
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 0;
+}
+.hero__watermark--top-right {
+  top: -90px;
+  right: -90px;
+}
+.hero__watermark--bottom-left {
+  bottom: -90px;
+  left: -90px;
+  transform: rotate(18deg);
+}
+
 /* Acessibilidade — foco */
 :focus-visible {
   outline: 2px solid var(--gold);
@@ -1967,6 +1987,10 @@ address {
   }
 
   .section__watermark {
+    display: block;
+  }
+
+  .hero__watermark {
     display: block;
   }
 }
