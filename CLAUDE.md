@@ -99,14 +99,21 @@
 ```
 SorriaWebSite/
 ├── index.html
-├── guias.html          (página dedicada aos Guias de Pós-Atendimento — grade 3x3 de capas)
-├── css/style.css       (mobile-first, CSS custom properties, compartilhado pelas 2 páginas)
+├── guias.html          (grade 3x3 de capas dos 9 Guias de Pós-Atendimento)
+├── guia.html           (visualizador dinâmico — recebe ?g=slug e renderiza as páginas)
+├── css/style.css       (mobile-first, CSS custom properties, compartilhado por todas as páginas)
 ├── js/
-│   ├── main.js         (menu, carrossel, FAQ, animações — compartilhado pelas 2 páginas)
-│   └── guias.js        (NÃO referenciado em nenhuma página atualmente — mantido só como
-│                         rascunho do conteúdo dos 9 guias, para reaproveitar quando as
-│                         páginas individuais de cada guia forem criadas)
-└── assets/images/      (placeholders — aguardando arquivos reais)
+│   ├── main.js         (menu, carrossel, FAQ, animações — compartilhado por todas as páginas)
+│   ├── guias-data.js   (objeto GUIAS com metadados de cada guia — incluído em guia.html)
+│   └── guias.js        (órfão — não referenciado por nenhuma página; mantido só como rascunho
+│                         de conteúdo de alguns guias caso seja útil futuramente)
+└── assets/
+    ├── images/         (logos, placeholders — aguardando arquivos reais)
+    └── guias/          (conteúdo dos guias, um subdiretório por guia)
+        └── alinhadores-invisiveis/
+            ├── alinhadores-invisiveis-01.jpg … alinhadores-invisiveis-14.jpg
+            ├── guia-alinhadores-invisiveis.pdf
+            └── capa-alinhadores-invisiveis.jpg
 ```
 
 ## Funcionalidades Implementadas
@@ -129,11 +136,20 @@ SorriaWebSite/
   (substituíram os 4 fictícios); cards mais largos no desktop (620px, ~2-2.5 visíveis por vez, era
   480px/~3.5 visíveis) para acomodar textos mais longos; altura uniforme via `align-items:stretch`
   no track + `height:auto` no card
-- **Página dedicada `guias.html`** com grade 3x3 (3 colunas no desktop / 2 no tablet / 1 no mobile)
-  de 9 "capas" de guias — cada capa é um placeholder no estilo dos placeholders de fotos da
-  clínica, com overlay verde escuro semitransparente sempre visível + número + título em branco
-  centralizados. Cards ainda apontam para `#` (sem conteúdo/página individual por guia ainda).
-  A seção de Guias e o modal de guia que existiam no `index.html` foram removidos de lá.
+- **Sistema de Guias de Pós-Atendimento** — duas páginas:
+  - `guias.html`: grade 3x3 (desktop) / 2 colunas (tablet) / 1 coluna (mobile) de capas dos 9
+    guias. Cards com capa real usam `<img class="guia-cover-card__bg">` + overlay verde escuro
+    sempre visível + número e título em branco centralizados. Cards sem capa ainda mantêm o
+    placeholder off-white. Ao clicar, abre `guia.html?g=[slug]`.
+  - `guia.html`: visualizador dinâmico único para todos os guias. Lê `?g=slug` via JS, busca
+    a config em `GUIAS` (definido em `js/guias-data.js`), e gera: eyebrow "Guia de
+    Pós-Atendimento", `<h1>` com o título, botões "Baixar PDF" (atributo download) e
+    "Compartilhar" (wa.me sem número, apenas com texto+URL), todas as páginas empilhadas
+    verticalmente como `<img class="guia-viewer__page" loading="lazy">` (primeira é eager),
+    e botão "Voltar aos Guias" no topo e no fim. Se o slug não existir em GUIAS, exibe
+    mensagem amigável e link de volta.
+  - **Guia ativo (implementado):** `alinhadores-invisiveis` — 14 páginas JPG + PDF + capa.
+  - A seção de Guias e o modal de guia que existiam no `index.html` foram removidos de lá.
 - FAQ Accordion (8 perguntas)
 - Localização com mapa Google + dados de contato
 - Footer completo com Instagram (Facebook foi removido — cliente só usa Instagram)
@@ -148,6 +164,27 @@ SorriaWebSite/
 - SEO: meta tags, OG, Schema.org (Dentist) — `guias.html` tem meta tags próprias mas sem o
   Schema.org Dentist duplicado (esse fica só na home).
 
+## Como Adicionar um Novo Guia
+
+1. Criar pasta `assets/guias/[slug]/` com:
+   - `[slug]-01.jpg` … `[slug]-NN.jpg` — páginas em ordem (número com zero à esquerda)
+   - `guia-[slug].pdf` — PDF para download
+   - `capa-[slug].jpg` — imagem de capa para o card em `guias.html`
+2. Adicionar uma entrada em `js/guias-data.js` (dentro do objeto `GUIAS`):
+   ```js
+   '[slug]': {
+     titulo: 'Título do Guia',
+     slug:   '[slug]',
+     paginas: N,
+     pdf:    'guia-[slug].pdf'
+   }
+   ```
+3. Em `guias.html`, no card correspondente:
+   - Trocar `href="#"` por `href="guia.html?g=[slug]"`
+   - Substituir `<div class="guia-cover-card__placeholder">` por:
+     `<img src="assets/guias/[slug]/capa-[slug].jpg" alt="" aria-hidden="true" class="guia-cover-card__bg">`
+   - Remover o comentário `<!-- SUBSTITUIR ... -->` acima do card
+
 ## Pontos de Substituição Pendentes
 1. **Foto hero** — `assets/images/hero-bg.jpg`
 2. **Foto Dra. Helena** — `assets/images/dra-helena.jpg`
@@ -156,11 +193,9 @@ SorriaWebSite/
 5. **Endereço completo** — CLSW 302, sala e bloco exatos
 6. **Iframe Google Maps** — substituir com embed correto da clínica
 7. **CRO-DF** — número do CRO da Dra. Helena
-8. **Conteúdo dos guias** — títulos definitivos, capas/imagens e texto profissional completo dos
-   9 guias em `guias.html` (hoje são só placeholders com `<!-- SUBSTITUIR -->`); os cards ainda
-   não levam a uma página/conteúdo individual por guia — falta decidir e construir esse próximo
-   passo (página por guia? modal? PDF?). `js/guias.js` tem rascunhos de conteúdo de alguns guias
-   que podem ser reaproveitados nessa etapa, mas não está mais conectado a nenhuma página.
+8. **Guias 02 a 09** — capas, PDFs e páginas JPG dos 8 guias restantes (cada um segue o processo
+   de 3 passos em "Como Adicionar um Novo Guia" acima). `js/guias.js` tem rascunhos de conteúdo
+   de alguns guias que podem ser reaproveitados como referência.
 9. **Formação acadêmica** — graduação e especializações reais
 10. **Link do Instagram** — URL real do perfil da clínica
 11. **Place/endereço exato no Google Maps** — assim que a ficha da Sorria no Google Meu Negócio tiver o endereço completo (CLSW 302, sala/bloco), gerar o embed definitivo (Compartilhar > Incorporar mapa, ou place_id) para o pin oficial
