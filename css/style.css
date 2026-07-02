@@ -1254,7 +1254,9 @@ address {
 
 /* ── PÁGINA DE GUIAS (guias.html) — grade de capas ── */
 .guias-page {
-  padding-top: calc(68px + var(--section-gap));
+  /* 68px = altura do header fixo; +28px de folga (antes usava --section-gap
+     inteiro, que deixava um vão grande demais entre o header e o título) */
+  padding-top: calc(68px + 28px);
 }
 
 .guias-page__header {
@@ -1291,6 +1293,12 @@ address {
   background: var(--bg-secondary);
 }
 
+/* Card com capa real: mostra só a imagem — nunca o overlay/rótulo, mesmo que
+   um overlay venha a ser deixado no HTML por engano. */
+.guia-cover-card--has-cover .guia-cover-card__overlay {
+  display: none;
+}
+
 .guia-cover-card__overlay {
   position: absolute;
   inset: 0;
@@ -1313,7 +1321,9 @@ address {
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--gold);
+  /* Branco (não dourado): o dourado sobre o overlay verde do placeholder
+     ficava ilegível. O overlay/rótulo só aparece em cards SEM capa. */
+  color: #FFFFFF;
 }
 
 .guia-cover-card__title {
@@ -1875,6 +1885,10 @@ address {
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;        /* Firefox */
+    /* CRÍTICO: a base usa `pan-y`, que bloqueia o arraste horizontal por toque
+       e impede o scroll nativo. `pan-x` libera o swipe do dedo no carrossel
+       (o gesto vertical continua rolando a página normalmente). */
+    touch-action: pan-x;
   }
   .carousel__track::-webkit-scrollbar {
     display: none;                /* Chrome / Safari / Edge */
@@ -2071,6 +2085,7 @@ address {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center; /* aproveita o novo enquadramento centralizado da capa */
 }
 
 /* ─── VISUALIZADOR DE GUIA (guia.html) ─── */

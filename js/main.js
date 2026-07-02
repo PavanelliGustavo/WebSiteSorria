@@ -243,7 +243,9 @@ class Carousel {
     this.current = idx;
 
     if (this._isScrollMode()) {
-      // Modo scroll-snap (mobile): scrollTo em vez de transform
+      // Modo scroll-snap (mobile): scrollTo em vez de transform.
+      // Limpa qualquer transform inline herdado do modo desktop (ex.: resize).
+      if (this.track.style.transform) this.track.style.transform = '';
       let scrollLeft = 0;
       for (let i = 0; i < idx; i++) {
         scrollLeft += this.slides[i].offsetWidth +
