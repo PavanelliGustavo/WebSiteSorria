@@ -72,6 +72,7 @@ html {
   scroll-behavior: smooth;
   font-size: 16px;
   -webkit-text-size-adjust: 100%;
+  overflow-x: hidden; /* necessário além do body para iOS Safari */
 }
 
 body {
@@ -1826,6 +1827,46 @@ address {
 /* ============================================================
    TABLET — 768px+
    ============================================================ */
+/* ============================================================
+   MOBILE ONLY — ≤767px  (ajustes exclusivos de celular)
+   ============================================================ */
+@media (max-width: 767px) {
+
+  /* 0 · OVERFLOW — esconder eventuais sangramentos horizontais */
+  body {
+    max-width: 100%;
+  }
+
+  /* 1 · HEADER — ocultar botão CTA; deixar só logo + hambúrguer */
+  .header__actions .btn {
+    display: none;
+  }
+
+  /* 2 · HERO — reduzir padding superior do conteúdo (≈ metade dos 60px padrão) */
+  .hero__content {
+    padding-block-start: 28px;
+  }
+
+  /* 3 · TECNOLOGIA — 3º card ocupa as 2 colunas (card "largo") */
+  .tec-card:nth-child(3) {
+    grid-column: 1 / -1;
+  }
+
+  /* 4 · CONVÊNIOS — 2 colunas + 5º item centralizado (2 + 2 + 1) */
+  .convenios__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .convenio-item:last-child {
+    grid-column: 1 / -1;
+    max-width: calc(50% - 6px); /* largura = 1 coluna do grid de 2 */
+    margin-inline: auto;
+  }
+}
+
+/* ============================================================
+   TABLET / DESKTOP — 768px+
+   ============================================================ */
 @media (min-width: 768px) {
   :root {
     --section-gap: 100px;
@@ -1883,6 +1924,9 @@ address {
   }
   .convenio-item {
     flex: 0 0 calc((100% - 32px) / 3);
+    /* reset dos overrides mobile para não quebrar o flex layout do desktop */
+    max-width: none;
+    margin-inline: 0;
   }
 
   /* Depoimentos */

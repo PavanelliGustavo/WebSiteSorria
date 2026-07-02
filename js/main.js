@@ -267,26 +267,52 @@ class Carousel {
 
   _bindTouch() {
     const el = this.track;
+    let startY    = 0;
+    let direction = null; // null = indeciso, 'h' = horizontal, 'v' = vertical
 
     el.addEventListener('touchstart', (e) => {
-      this.startX  = e.touches[0].clientX;
-      this.deltaX  = 0;
+      this.startX     = e.touches[0].clientX;
+      startY          = e.touches[0].clientY;
+      this.deltaX     = 0;
       this.isDragging = true;
+      direction       = null;
       el.style.transition = 'none';
     }, { passive: true });
 
     el.addEventListener('touchmove', (e) => {
       if (!this.isDragging) return;
-      this.deltaX = e.touches[0].clientX - this.startX;
+      const dx = e.touches[0].clientX - this.startX;
+      const dy = e.touches[0].clientY - startY;
+
+      // Determina a direção no primeiro movimento significativo (±4px de folga)
+      if (direction === null) {
+        if (Math.abs(dx) > Math.abs(dy) + 4) {
+          direction = 'h';
+        } else if (Math.abs(dy) > Math.abs(dx) + 4) {
+          direction = 'v';
+          this.isDragging = false;
+          return; // deixar o browser rolar a página
+        } else {
+          return; // ainda indeciso — aguardar mais movimento
+        }
+      }
+
+      if (direction !== 'h') return;
+
+      e.preventDefault(); // bloquear scroll vertical enquanto arrasta o carrossel
+      this.deltaX = dx;
       const slideWidth = this.slides[0].getBoundingClientRect().width +
         parseInt(getComputedStyle(this.slides[0]).marginRight || 0, 10);
       const base = -slideWidth * this.current;
       el.style.transform = `translateX(${base + this.deltaX * 0.8}px)`;
-    }, { passive: true });
+    }, { passive: false }); // não-passivo para poder chamar preventDefault
 
     el.addEventListener('touchend', () => {
+      const wasH = direction === 'h';
       this.isDragging = false;
+      direction = null;
       el.style.transition = 'transform 0.4s cubic-bezier(0.4,0,0.2,1)';
+      if (!wasH) return; // gesto vertical — não mexer no carrossel
       const threshold = 60;
       if (this.deltaX < -threshold) this.next();
       else if (this.deltaX > threshold) this.prev();

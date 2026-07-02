@@ -125,6 +125,13 @@ SorriaWebSite/
   (desktop+drawer mobile) e nos "Links rápidos" do footer, nas duas páginas.
 - Smooth scroll + indicador de seção ativa (IntersectionObserver) — só atua nos 2 links que têm
   `data-section` (Início/Contato & Localização); o link de Guias não participa (é outra página).
+- **Mobile (≤767px) — ajustes exclusivos** (não afetam desktop):
+  - `html + body { overflow-x: hidden }` — elimina scroll lateral em toda a viewport.
+  - Header: botão "Agendar Avaliação" oculto (`display: none`) — só logo + hambúrguer visíveis.
+  - Hero: `padding-block-start: 28px` no `.hero__content` (reduz espaço entre header e headline).
+  - Tecnologia: 3º card (`Câmera Intraoral HD`) ocupa as 2 colunas (`grid-column: 1 / -1`).
+  - Convênios: layout 2+2+1 (grid de 2 colunas; 5º item centralizado via `max-width: calc(50% - 6px)` + `margin-inline: auto`). Desktop continua 3+2 flex com reset explícito no 768px+ breakpoint.
+  - Carrosséis (galeria + depoimentos): `_bindTouch()` no `main.js` detecta direção do gesto antes de iniciar o drag — só captura o swipe quando o movimento é primariamente horizontal (dx > dy + 4px); chama `e.preventDefault()` com `{ passive: false }` para evitar conflito com o scroll vertical da página.
 - Hero com overlay claro (branco translúcido) + badges de credibilidade
 - Seção Sobre com foto placeholder + badge "30+ anos"
 - 2 cards de especialidades (Odontopediatria / Ortodontia)
