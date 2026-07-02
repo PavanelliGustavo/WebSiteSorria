@@ -1852,15 +1852,40 @@ address {
     grid-column: 1 / -1;
   }
 
-  /* 4 · CONVÊNIOS — 2 colunas + 5º item centralizado (2 + 2 + 1) */
+  /* 4 · CONVÊNIOS — 2 + 2 + 1: flex com wrap; todos os cards idênticos */
   .convenios__grid {
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 12px;
   }
+  .convenio-item {
+    flex: 0 0 calc(50% - 6px); /* mesma largura em todos os 5 cards */
+  }
   .convenio-item:last-child {
-    grid-column: 1 / -1;
-    max-width: calc(50% - 6px); /* largura = 1 coluna do grid de 2 */
-    margin-inline: auto;
+    grid-column: auto; /* reset da versão anterior (grid) */
+    max-width: none;
+    margin-inline: 0;
+  }
+
+  /* 5 · CARROSSÉIS — scroll-snap nativo para swipe confiável no celular */
+  .carousel__track {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;        /* Firefox */
+  }
+  .carousel__track::-webkit-scrollbar {
+    display: none;                /* Chrome / Safari / Edge */
+  }
+  .carousel__slide {
+    scroll-snap-align: start;
+    flex-shrink: 0;
+  }
+  /* Depoimentos: sem padding inline no mobile (não precisa de centering por scroll-snap) */
+  .depoimentos__carousel .carousel__track {
+    padding-inline: 0;
   }
 }
 

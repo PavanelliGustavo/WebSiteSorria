@@ -234,9 +234,6 @@ class Carousel {
   }
 
   goTo(index, animate = true) {
-    if (!animate) this.track.style.transition = 'none';
-    else this.track.style.transition = 'transform 0.4s cubic-bezier(0.4,0,0.2,1)';
-
     let idx = index;
     if (this.loop) {
       idx = ((idx % this.total) + this.total) % this.total;
@@ -245,13 +242,27 @@ class Carousel {
     }
     this.current = idx;
 
-    const slideWidth = this.slides[0].getBoundingClientRect().width +
-      parseInt(getComputedStyle(this.slides[0]).marginRight || 0, 10);
-
-    this.track.style.transform = `translateX(${-slideWidth * this.current}px)`;
-
-    // Forçar reflow se sem animação
-    if (!animate) void this.track.offsetWidth;
+    if (this._isScrollMode()) {
+      // Modo scroll-snap (mobile): scrollTo em vez de transform
+      let scrollLeft = 0;
+      for (let i = 0; i < idx; i++) {
+        scrollLeft += this.slides[i].offsetWidth +
+          parseInt(getComputedStyle(this.slides[i]).marginRight || 0, 10);
+      }
+      if (animate) {
+        this.track.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+      } else {
+        this.track.scrollLeft = scrollLeft;
+      }
+    } else {
+      // Modo transform (desktop)
+      if (!animate) this.track.style.transition = 'none';
+      else this.track.style.transition = 'transform 0.4s cubic-bezier(0.4,0,0.2,1)';
+      const slideWidth = this.slides[0].getBoundingClientRect().width +
+        parseInt(getComputedStyle(this.slides[0]).marginRight || 0, 10);
+      this.track.style.transform = `translateX(${-slideWidth * idx}px)`;
+      if (!animate) void this.track.offsetWidth;
+    }
 
     this._updateDots();
     this._updateArrows();
@@ -267,52 +278,75 @@ class Carousel {
 
   _bindTouch() {
     const el = this.track;
-    let startY    = 0;
-    let direction = null; // null = indeciso, 'h' = horizontal, 'v' = vertical
+
+    // Modo scroll-snap (mobile): o browser cuida do swipe; só sincronizar dots
+    let syncTimer;
+    el.addEventListener('scroll', () => {
+      if (!this._isScrollMode()) return;
+      clearTimeout(syncTimer);
+      syncTimer = setTimeout(() => {
+        const trackLeft = el.getBoundingClientRect().left;
+        let idx = 0;
+        let minDist = Infinity;
+        this.slides.forEach((slide, i) => {
+          const dist = Math.abs(slide.getBoundingClientRect().left - trackLeft);
+          if (dist < minDist) { minDist = dist; idx = i; }
+        });
+        if (idx !== this.current) {
+          this.current = idx;
+          this._updateDots();
+          this._updateArrows();
+        }
+      }, 50);
+    }, { passive: true });
+
+    // Modo transform (desktop): arrastar com eventos de toque
+    let startY = 0;
+    let direction = null;
 
     el.addEventListener('touchstart', (e) => {
-      this.startX     = e.touches[0].clientX;
-      startY          = e.touches[0].clientY;
-      this.deltaX     = 0;
+      if (this._isScrollMode()) return;
+      this.startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      this.deltaX = 0;
       this.isDragging = true;
-      direction       = null;
+      direction = null;
       el.style.transition = 'none';
     }, { passive: true });
 
     el.addEventListener('touchmove', (e) => {
-      if (!this.isDragging) return;
+      if (this._isScrollMode() || !this.isDragging) return;
       const dx = e.touches[0].clientX - this.startX;
       const dy = e.touches[0].clientY - startY;
 
-      // Determina a direção no primeiro movimento significativo (±4px de folga)
       if (direction === null) {
         if (Math.abs(dx) > Math.abs(dy) + 4) {
           direction = 'h';
         } else if (Math.abs(dy) > Math.abs(dx) + 4) {
           direction = 'v';
           this.isDragging = false;
-          return; // deixar o browser rolar a página
+          return;
         } else {
-          return; // ainda indeciso — aguardar mais movimento
+          return;
         }
       }
-
       if (direction !== 'h') return;
 
-      e.preventDefault(); // bloquear scroll vertical enquanto arrasta o carrossel
+      e.preventDefault();
       this.deltaX = dx;
       const slideWidth = this.slides[0].getBoundingClientRect().width +
         parseInt(getComputedStyle(this.slides[0]).marginRight || 0, 10);
       const base = -slideWidth * this.current;
       el.style.transform = `translateX(${base + this.deltaX * 0.8}px)`;
-    }, { passive: false }); // não-passivo para poder chamar preventDefault
+    }, { passive: false });
 
     el.addEventListener('touchend', () => {
+      if (this._isScrollMode()) return;
       const wasH = direction === 'h';
       this.isDragging = false;
       direction = null;
       el.style.transition = 'transform 0.4s cubic-bezier(0.4,0,0.2,1)';
-      if (!wasH) return; // gesto vertical — não mexer no carrossel
+      if (!wasH) return;
       const threshold = 60;
       if (this.deltaX < -threshold) this.next();
       else if (this.deltaX > threshold) this.prev();
@@ -335,6 +369,11 @@ class Carousel {
   }
   _stopAutoplay() {
     clearInterval(this._autoplayTimer);
+  }
+
+  // Retorna true quando o CSS de mobile ativou overflow-x (scroll-snap)
+  _isScrollMode() {
+    return getComputedStyle(this.track).overflowX !== 'visible';
   }
 
   // Recalcula posição no resize
@@ -414,7 +453,7 @@ class Carousel {
       const padding = Math.max(20, (carouselWidth - cardWidth) / 2);
       track.style.paddingInline = `${Math.min(padding, 120)}px`;
     } else {
-      track.style.paddingInline = '20px';
+      track.style.paddingInline = ''; // mobile: CSS scroll-snap cuida do layout
     }
   }
   window.addEventListener('resize', updatePadding);
