@@ -418,7 +418,7 @@ class Carousel {
   if (!elements.length) return;
 
   // Adiciona classe fade-up em elementos que devem animar
-  $$('.tec-card, .especialidade-card, .section__header, .about__image-wrapper, .about__content').forEach(el => {
+  $$('.tec-card, .especialidade-card, .section__header, .equipe__photo').forEach(el => {
     if (!el.classList.contains('fade-up')) el.classList.add('fade-up');
   });
 

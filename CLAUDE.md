@@ -72,11 +72,14 @@
 
 ### Ícones de rosto/sorriso = símbolo da marca
 - Qualquer ícone genérico de rosto/sorriso no site usa `simbolo-adulto-verde.png` (institucional, versão colorida para fundo claro) — substitui ícones como o `smile` do Lucide (badge "Ortodontia" no hero, ícone do guia "Aparelho Ortodôntico").
-- **Card de Odontopediatria** (seção Especialidades): ícone é `simbolo-bebe-cor.png` (símbolo colorido com detalhe infantil).
-- **Card de Ortodontia**: ícone é `simbolo-adulto-verde.png`.
-- Ambos ficam dentro da caixa de ícone com fundo off-white `#F6F4EF` e borda dourada sutil.
+- **Card "Primeiro Sorriso"** (Odontopediatria, seção Especialidades): ícone é `simbolo-bebe-cor.png` (símbolo colorido com detalhe infantil).
+- **Cards "Sorriso em Transformação"** (Ortodontia) e **"Sorriso para Toda a Vida"** (adultos): ícone é `simbolo-adulto-verde.png`.
+- Os três ficam dentro da caixa de ícone com fundo off-white `#F6F4EF` e borda dourada sutil.
 
 ## Informações Reais da Clínica
+- **Endereço:** Centro Clínico Sudoeste — SHCSW Bloco 3/4/5, Sala 238 — Brasília/DF — CEP 70673-416
+  (aparece em: schema.org `PostalAddress` do `index.html`, seção "Onde Estamos", link "Como chegar",
+  embed do mapa e rodapé das três páginas — manter os cinco pontos em sincronia)
 - **Telefone:** (61) 3797-3006
 - **WhatsApp:** (61) 98111-8014 — wa.me/5561981118014
 - **E-mail:** contato@sorriaodontologia.com.br
@@ -84,9 +87,12 @@
 - **Experiência:** +30 anos
 
 ## Tecnologias Oficiais (Seção "Nossos Diferenciais")
-1. **Anestesia Eletrônica** — fluxo controlado e indolor
-2. **Scanner Intraoral 3D** — sem massa de moldagem
-3. **Câmera Intraoral HD** — visualização em tempo real
+Título da seção: **"Tecnologia que torna sua experiência melhor"** — o foco do texto é o
+BENEFÍCIO ao paciente, não o equipamento. Cada card tem uma frase de chamada
+(`.tec-card__chamada`, dourado itálico em Quicksand) acima do nome do equipamento:
+1. **Anestesia Computadorizada** — _"Mais conforto desde o primeiro minuto."_
+2. **Scanner Intraoral 3D** — _"Adeus às moldagens desconfortáveis."_
+3. **Câmera Intraoral HD** — _"Você entende o seu tratamento."_
 
 ## Convênios Aceitos
 1. Plan-Assiste
@@ -117,6 +123,14 @@ SorriaWebSite/
 ```
 
 ## Funcionalidades Implementadas
+> **Regra de conteúdo × layout (vale para todo o site):** o CONTEÚDO (textos, cards, listas,
+> legendas, perguntas) é sempre o MESMO em desktop e mobile — nunca criar um texto ou card que
+> exista só numa das telas. O que pode variar entre as telas é apenas a ORGANIZAÇÃO/LAYOUT
+> (grade vs. carrossel, empilhamento, tamanho de fonte, espaçamentos). Por isso as seções que
+> viram carrossel no mobile (Equipe, Especialidades, Galeria) repetem exatamente os mesmos
+> itens do desktop — e, na Galeria, que tem markup duplicado (grid + carrossel), qualquer
+> alteração de conteúdo precisa ser aplicada NOS DOIS blocos.
+
 - Header fixo, transparente no topo e com fundo branco translúcido + sombra sutil ao rolar
 - Menu hamburger com drawer lateral (mobile, fundo branco) / nav horizontal (desktop)
 - Menu com 3 itens, nesta ordem: **Início** (`#inicio`) / **Contato & Localização** (`#localizacao`
@@ -128,15 +142,50 @@ SorriaWebSite/
 - **Mobile (≤767px) — ajustes exclusivos** (não afetam desktop):
   - `html + body { overflow-x: hidden }` — elimina scroll lateral em toda a viewport.
   - Header: botão "Agendar Avaliação" oculto (`display: none`) — só logo + hambúrguer visíveis.
-  - Hero: `padding-block-start: 28px` no `.hero__content` (reduz espaço entre header e headline).
-  - Tecnologia: 3º card (`Câmera Intraoral HD`) ocupa as 2 colunas (`grid-column: 1 / -1`).
-  - Convênios: layout 2+2+1 (grid de 2 colunas; 5º item centralizado via `max-width: calc(50% - 6px)` + `margin-inline: auto`). Desktop continua 3+2 flex com reset explícito no 768px+ breakpoint.
-  - Carrosséis (galeria + depoimentos): `_bindTouch()` no `main.js` detecta direção do gesto antes de iniciar o drag — só captura o swipe quando o movimento é primariamente horizontal (dx > dy + 4px); chama `e.preventDefault()` com `{ passive: false }` para evitar conflito com o scroll vertical da página.
-- Hero com overlay claro (branco translúcido) + badges de credibilidade
-- Seção Sobre com foto placeholder + badge "30+ anos"
-- 2 cards de especialidades (Odontopediatria / Ortodontia)
-- 3 cards de Tecnologia (Anestesia Eletrônica, Scanner 3D, Câmera HD)
-- Galeria: carrossel touch (mobile) / grid 3 colunas (desktop)
+  - Hero: `min-height: auto` (em vez dos `100dvh` do desktop) + paddings/margens internas
+    reduzidos — sem isso sobrava um vão vazio grande, porque o conteúdo centralizado não
+    preenchia a tela. Como o `.hero__scroll-indicator` é `position:absolute; bottom:32px`, ele
+    fica `display:none` no mobile (sem os 100dvh colidiria com os selos).
+  - Tecnologia: os TRÊS cards no mesmo formato, empilhados em 1 coluna
+    (`grid-template-columns: 1fr`). O antigo 3º card "largo" (`grid-column: 1 / -1`) foi removido.
+  - Convênios: layout 2+2+1 — o `.convenios__grid` vira `flex` com `flex-wrap` + `justify-content: center` e TODOS os `.convenio-item` recebem `flex: 0 0 calc(50% - 6px)`, garantindo largura idêntica nos 5 cards (o 5º centraliza sozinho na última fileira). Desktop continua 3+2 flex com reset explícito no 768px+ breakpoint.
+  - Carrosséis (galeria + depoimentos): usam **scroll-snap nativo** no mobile (`overflow-x: auto` + `scroll-snap-type: x mandatory` no track, `scroll-snap-align: start` nos slides). **Atenção:** a regra base do `.carousel__track` é `touch-action: pan-y`, que bloqueia o arraste horizontal por toque — o bloco mobile precisa sobrescrever para `touch-action: pan-x`, senão o swipe com o dedo não funciona (foi exatamente essa a causa do bug). O `main.js` detecta o modo via `_isScrollMode()` (`getComputedStyle(track).overflowX !== 'visible'`): em scroll mode o `goTo()` usa `scrollTo` e os dots sincronizam por evento `scroll`; no desktop segue o modo `transform` com os handlers de toque antigos.
+  - **Equipe e Especialidades viram carrossel** (`.equipe__grid` / `.especialidades__grid`):
+    reaproveitam o mesmo mecanismo nativo — `display:flex` + `overflow-x:auto` +
+    `scroll-snap-type: x mandatory` + `touch-action: pan-x`, com `scroll-snap-align: start` nos
+    filhos (`.equipe__photo` a 68% e `.especialidade-card` a 88% da largura, deixando prévia do
+    próximo). **Sem JS**: não são instâncias da classe `Carousel` justamente para não aplicarem
+    `transform` no desktop, onde as duas seções voltam a ser grade lado a lado. O
+    `margin-inline` negativo + `padding-inline` faz o trilho sangrar até a borda mantendo o
+    primeiro item alinhado ao container; o `padding-block: 8px` evita que a sombra dos cards
+    seja cortada pelo `overflow`.
+- Hero com overlay claro (branco translúcido) + badges de credibilidade. Headline é um
+  **manifesto de 6 linhas** (`.hero__headline--manifesto`, fonte reduzida p/ caber): a 1ª
+  ("Sorria sem medo.") e a última ("Por gerações.") em `<em>` dourado itálico, as 4 do meio em
+  verde escuro. Não há mais subheadline — o manifesto substituiu headline + subtexto.
+- **Seção Equipe** (`#sobre`, eyebrow "Quem cuida da sua família") — deixou de ser sobre a
+  Dra. Helena individualmente: 3 placeholders de foto lado a lado (`.equipe__grid`, 3 colunas
+  no desktop / 1 no mobile; `.equipe__photo` mantém o `aspect-ratio: 3/4` + borda dourada do
+  antigo retrato), parágrafo coletivo centralizado (`.equipe__text`) e CTA de WhatsApp
+  centralizado (`.equipe__cta`). Bio, CRO, formação acadêmica e o badge "30+ anos" foram
+  removidos daqui (o selo "+30 anos" continua nos badges do hero).
+- **3 cards de Especialidades** — "Primeiro Sorriso" (Odontopediatria, ícone
+  `simbolo-bebe-cor.png`), "Sorriso em Transformação" (Ortodontia) e "Sorriso para Toda a Vida"
+  (tratamento para adultos) — os dois últimos usam `simbolo-adulto-verde.png`. Cada card tem
+  ícone, título + chamada em `<em>` dourado itálico, descrição, lista de 6 serviços e botão
+  "Saiba mais" para o WhatsApp. Lado a lado no desktop, carrossel no mobile (ver bloco mobile).
+- 3 cards de Tecnologia (Anestesia Computadorizada, Scanner 3D, Câmera HD) — cada um com
+  frase de chamada dourada acima do título (ver "Tecnologias Oficiais"). Para os três ficarem
+  com a mesma altura e as linhas alinhadas, `.tec-card__chamada` recebe
+  `min-height: calc(2 * 1.4em)` **apenas no breakpoint 768px+** (reserva 2 linhas quando os
+  cards estão lado a lado); empilhados no mobile isso só criaria espaço vazio.
+- Galeria: carrossel touch (mobile) / grid 3 colunas (desktop). Cada foto tem legenda
+  (`.galeria__caption`) associando o ambiente a um **sentimento**: Recepção→Acolhimento,
+  Sala Infantil→Confiança, Consultório→Tecnologia, Área de Espera→Excelência,
+  Equipamentos→Relacionamento, Fachada→Planejamento. O sentimento vem em dourado itálico
+  (Quicksand) e o nome do ambiente abaixo, em caixa alta pequena. A seção fecha com
+  `.galeria__fecho`: "É assim que acompanhamos famílias por gerações." **A legenda existe nos
+  dois blocos de markup** (grid do desktop e slides do carrossel) — manter em sincronia.
 - Seção de Convênios com 5 cards: **3 na primeira fileira + 2 centralizados na segunda**
   (flexbox com `flex-wrap` a partir de 768px; no mobile permanece como grid de 3 colunas, sem alteração)
 - Carrossel de Depoimentos com autoplay 6s + arrows + swipe — **4 depoimentos reais** de pacientes
@@ -157,7 +206,11 @@ SorriaWebSite/
     mensagem amigável e link de volta.
   - **Guia ativo (implementado):** `alinhadores-invisiveis` — 14 páginas JPG + PDF + capa.
   - A seção de Guias e o modal de guia que existiam no `index.html` foram removidos de lá.
-- FAQ Accordion (8 perguntas)
+- FAQ Accordion (9 perguntas). As **3 primeiras são objeções sensíveis** ("Meu filho tem medo
+  de dentista.", "Tenho vergonha do meu sorriso.", "Já usei aparelho antes.") com respostas acolhedoras marcadas `<!-- REVISAR COM A CLÍNICA: texto da resposta -->`
+  — a doutora ainda vai validar esses textos. As perguntas técnicas seguem depois, e a última
+  consolida agendamento + convênios + horário (info que antes estava em 3 perguntas separadas,
+  substituídas pelas 4 novas).
 - Localização com mapa Google + dados de contato
 - Footer completo com Instagram (Facebook foi removido — cliente só usa Instagram)
 - Botão flutuante WhatsApp e todos os CTAs "Falar/Agendar pelo WhatsApp" usam o SVG oficial completo (balão + telefone) — não usar o ícone genérico `message-circle` do Lucide
@@ -194,19 +247,21 @@ SorriaWebSite/
 
 ## Pontos de Substituição Pendentes
 1. **Foto hero** — `assets/images/hero-bg.jpg`
-2. **Foto Dra. Helena** — `assets/images/dra-helena.jpg`
+2. **Fotos da equipe** — 3 placeholders na seção "Quem cuida da sua família" (a 1ª pode ser a
+   Dra. Helena). Trocar cada `.equipe__photo` por um `<img>` com a foto real.
 3. **Logos dos convênios** — 5 cards aguardando logos oficiais
 4. **Fotos da clínica** — 6 placeholders na galeria
-5. **Endereço completo** — CLSW 302, sala e bloco exatos
-6. **Iframe Google Maps** — substituir com embed correto da clínica
-7. **CRO-DF** — número do CRO da Dra. Helena
-8. **Guias 02 a 09** — capas, PDFs e páginas JPG dos 8 guias restantes (cada um segue o processo
+5. **Iframe Google Maps** — o embed atual usa busca por endereço (`q=`) com o endereço correto;
+   assim que a ficha no Google Meu Negócio estiver ativa, gerar o embed definitivo
+   (Compartilhar > Incorporar mapa, ou `place_id`) para o pin oficial
+6. **CRO-DF** — número do CRO da Dra. Helena (usado no rodapé)
+7. **Guias 02 a 09** — capas, PDFs e páginas JPG dos 8 guias restantes (cada um segue o processo
    de 3 passos em "Como Adicionar um Novo Guia" acima). `js/guias.js` tem rascunhos de conteúdo
    de alguns guias que podem ser reaproveitados como referência.
-9. **Formação acadêmica** — graduação e especializações reais
-10. **Link do Instagram** — URL real do perfil da clínica
-11. **Place/endereço exato no Google Maps** — assim que a ficha da Sorria no Google Meu Negócio tiver o endereço completo (CLSW 302, sala/bloco), gerar o embed definitivo (Compartilhar > Incorporar mapa, ou place_id) para o pin oficial
-12. **Fotos dos pacientes nos depoimentos** — Ilma Costa Nascimento, Suzana de Albuquerque, Aline Gonçalves Costa Henrique, Milk Alves (hoje usam iniciais em círculo)
+8. **Respostas das 4 novas perguntas do FAQ** — textos acolhedores marcados com
+   `<!-- REVISAR COM A CLÍNICA -->`, pendentes de validação da doutora
+9. **Link do Instagram** — URL real do perfil da clínica
+10. **Fotos dos pacientes nos depoimentos** — Ilma Costa Nascimento, Suzana de Albuquerque, Aline Gonçalves Costa Henrique, Milk Alves (hoje usam iniciais em círculo)
 
 ## Copyright
 © 2026 Sorria Instituto Odontológico
