@@ -911,6 +911,8 @@ address {
   pointer-events: none;
 }
 
+/* Só aparece no hover (desktop). Não há rótulo fixo sob as fotos: o sentimento
+   e o nome do ambiente vivem exclusivamente aqui. */
 .galeria__overlay {
   position: absolute;
   inset: 0;
@@ -918,45 +920,26 @@ address {
   opacity: 0;
   transition: opacity var(--transition);
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 2px;
   padding: 20px;
 }
-.galeria__overlay span {
-  color: #FFFFFF;
-  font-weight: 600;
-  font-size: 0.9rem;
-}
-
-/* Legenda sob cada foto: sentimento em destaque + nome do ambiente */
-.galeria__cell {
-  display: flex;
-  flex-direction: column;
-}
-
-.galeria__caption {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  margin-top: 14px;
-  text-align: center;
-}
-
-.galeria__sentimento {
+.galeria__overlay-sentimento {
   font-family: var(--font-display);
-  font-size: 1.0625rem;
+  font-size: 1.125rem;
   font-weight: 600;
   font-style: italic;
-  color: var(--gold);
+  color: var(--gold-light); /* dourado claro: sobre o overlay escuro tem contraste alto */
   line-height: 1.3;
 }
-
-.galeria__ambiente {
-  font-size: 0.75rem;
+.galeria__overlay-ambiente {
+  color: #FFFFFF;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  font-size: 0.8125rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--text-secondary);
 }
 
 .galeria__fecho {
@@ -982,22 +965,20 @@ address {
   touch-action: pan-y;
 }
 
-/* Altura automática: o slide agora carrega foto + legenda (o arredondamento
-   e o recorte passaram para a foto, para não cortar a legenda). */
 .galeria__carousel .carousel__track {
-  height: auto;
+  height: 260px;
 }
 
 .galeria__carousel .carousel__slide {
   flex: 0 0 80vw;
   max-width: 340px;
   margin-right: 16px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
 }
 .galeria__carousel .carousel__slide .galeria__placeholder {
   width: 100%;
-  height: 220px;
-  border-radius: var(--radius-md);
-  overflow: hidden;
+  height: 100%;
 }
 
 .carousel__dots {

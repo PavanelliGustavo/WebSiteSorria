@@ -31,6 +31,7 @@
 
 --gold:           #B8923C   /* Dourado — ACENTO, usado com parcimônia */
 --gold-hover:     #9c7b30   /* Dourado mais escuro p/ hover */
+--gold-light:     #e0c489   /* Dourado claro — para dourado sobre fundo ESCURO (hover da galeria) */
 --gold-border:    rgba(184,146,60,0.25)
 --gold-divider:   rgba(184,146,60,0.35)
 
@@ -111,15 +112,25 @@ SorriaWebSite/
 ├── js/
 │   ├── main.js         (menu, carrossel, FAQ, animações — compartilhado por todas as páginas)
 │   ├── guias-data.js   (objeto GUIAS com metadados de cada guia — incluído em guia.html)
-│   └── guias.js        (órfão — não referenciado por nenhuma página; mantido só como rascunho
-│                         de conteúdo de alguns guias caso seja útil futuramente)
+│   └── guias.js        (órfão — não referenciado por nenhuma página. Com os 9 guias publicados
+│                         perdeu a função de rascunho e ainda guarda TÍTULOS ANTIGOS
+│                         ("Placa de Bruxismo", "Sequência de Erupção...") — ignorar em buscas;
+│                         candidato a remoção)
 └── assets/
     ├── images/         (logos, placeholders — aguardando arquivos reais)
-    └── guias/          (conteúdo dos guias, um subdiretório por guia)
-        └── alinhadores-invisiveis/
-            ├── alinhadores-invisiveis-01.jpg … alinhadores-invisiveis-14.jpg
-            ├── guia-alinhadores-invisiveis.pdf
-            └── capa-alinhadores-invisiveis.jpg
+    └── guias/          (conteúdo dos guias — 9 subdiretórios, um por guia, todos publicados)
+        ├── alinhadores-invisiveis/   (14 páginas)
+        ├── aparelho-ortodontico/     (15)
+        ├── clareamento/              (11)
+        ├── trauma-dental/            (14)
+        ├── placa-contencao/          (16)
+        ├── placa-bruxismo/           (17)
+        ├── pos-extracao/             (15)
+        ├── expansor/                 (15)
+        └── primeiros-dentinhos/      (16)
+            ├── [slug]-01.jpg … [slug]-NN.jpg   (páginas, zero à esquerda)
+            ├── guia-[slug].pdf                 (download)
+            └── capa-[slug].jpg                 (capa do card)
 ```
 
 ## Funcionalidades Implementadas
@@ -179,13 +190,15 @@ SorriaWebSite/
   com a mesma altura e as linhas alinhadas, `.tec-card__chamada` recebe
   `min-height: calc(2 * 1.4em)` **apenas no breakpoint 768px+** (reserva 2 linhas quando os
   cards estão lado a lado); empilhados no mobile isso só criaria espaço vazio.
-- Galeria: carrossel touch (mobile) / grid 3 colunas (desktop). Cada foto tem legenda
-  (`.galeria__caption`) associando o ambiente a um **sentimento**: Recepção→Acolhimento,
+- Galeria: carrossel touch (mobile) / grid 3 colunas (desktop). **Não há rótulo fixo sob as
+  fotos** — a informação aparece só no hover, dentro do `.galeria__overlay`, em duas linhas: o
+  **sentimento** do ambiente (`.galeria__overlay-sentimento`, dourado claro itálico) e o nome do
+  ambiente (`.galeria__overlay-ambiente`, caixa alta). Pares: Recepção→Acolhimento,
   Sala Infantil→Confiança, Consultório→Tecnologia, Área de Espera→Excelência,
-  Equipamentos→Relacionamento, Fachada→Planejamento. O sentimento vem em dourado itálico
-  (Quicksand) e o nome do ambiente abaixo, em caixa alta pequena. A seção fecha com
-  `.galeria__fecho`: "É assim que acompanhamos famílias por gerações." **A legenda existe nos
-  dois blocos de markup** (grid do desktop e slides do carrossel) — manter em sincronia.
+  Equipamentos→Relacionamento, Fachada→Planejamento. O overlay usa `--gold-light` (não `--gold`)
+  porque fica sobre fundo escuro `rgba(13,13,13,0.55)`. **No mobile não há hover nem overlay** —
+  os slides do carrossel mostram só a foto, e isso é intencional: não reintroduzir legenda fixa.
+  A seção fecha com `.galeria__fecho`: "É assim que acompanhamos famílias por gerações."
 - Seção de Convênios com 5 cards: **3 na primeira fileira + 2 centralizados na segunda**
   (flexbox com `flex-wrap` a partir de 768px; no mobile permanece como grid de 3 colunas, sem alteração)
 - Carrossel de Depoimentos com autoplay 6s + arrows + swipe — **4 depoimentos reais** de pacientes
@@ -194,9 +207,11 @@ SorriaWebSite/
   no track + `height:auto` no card
 - **Sistema de Guias de Pós-Atendimento** — duas páginas:
   - `guias.html`: grade 3x3 (desktop) / 2 colunas (tablet) / 1 coluna (mobile) de capas dos 9
-    guias. Cards com capa real usam `<img class="guia-cover-card__bg">` + overlay verde escuro
-    sempre visível + número e título em branco centralizados. Cards sem capa ainda mantêm o
-    placeholder off-white. Ao clicar, abre `guia.html?g=[slug]`.
+    guias. **Os 9 guias estão publicados — não há mais placeholder nem rótulo "GUIA 0X" em
+    nenhum card.** Todo card usa `<img class="guia-cover-card__bg">` com a capa real e abre
+    `guia.html?g=[slug]`; a capa já traz o título, por isso o overlay/rótulo não é renderizado
+    (classe `guia-cover-card--has-cover`). As 3 primeiras capas são `loading="eager"`, o resto
+    `lazy`. A ordem da grade é a mesma das chaves de `GUIAS` em `js/guias-data.js`.
   - `guia.html`: visualizador dinâmico único para todos os guias. Lê `?g=slug` via JS, busca
     a config em `GUIAS` (definido em `js/guias-data.js`), e gera: eyebrow "Guia de
     Pós-Atendimento", `<h1>` com o título, botões "Baixar PDF" (atributo download) e
@@ -204,7 +219,22 @@ SorriaWebSite/
     verticalmente como `<img class="guia-viewer__page" loading="lazy">` (primeira é eager),
     e botão "Voltar aos Guias" no topo e no fim. Se o slug não existir em GUIAS, exibe
     mensagem amigável e link de volta.
-  - **Guia ativo (implementado):** `alinhadores-invisiveis` — 14 páginas JPG + PDF + capa.
+  - **Os 9 guias publicados** (slug → páginas → título; o campo `paginas` precisa bater com a
+    quantidade real de JPGs, senão o visualizador pede imagens inexistentes):
+    | slug | páginas | título |
+    |---|---|---|
+    | `alinhadores-invisiveis` | 14 | Guia para Alinhadores Invisíveis |
+    | `aparelho-ortodontico` | 15 | Guia para Aparelho Ortodôntico |
+    | `clareamento` | 11 | Guia Pós-Clareamento Dental |
+    | `trauma-dental` | 14 | Guia Pós-Trauma Dental Infantil |
+    | `placa-contencao` | 16 | Guia para Placa de Contenção |
+    | `placa-bruxismo` | 17 | Guia para Placa Miorrelaxante |
+    | `pos-extracao` | 15 | Guia Pós-Extração de Dente de Leite |
+    | `expansor` | 15 | Guia Pós-Instalação do Expansor |
+    | `primeiros-dentinhos` | 16 | Guia Primeiros Dentinhos |
+    Dois títulos foram renomeados para bater com a capa aprovada: "Guia sobre Placa de Bruxismo"
+    → **"Guia para Placa Miorrelaxante"** (o slug segue `placa-bruxismo`) e "Guia sobre a
+    Sequência de Erupção dos Dentes de Leite" → **"Guia Primeiros Dentinhos"**.
   - A seção de Guias e o modal de guia que existiam no `index.html` foram removidos de lá.
 - FAQ Accordion (9 perguntas). As **3 primeiras são objeções sensíveis** ("Meu filho tem medo
   de dentista.", "Tenho vergonha do meu sorriso.", "Já usei aparelho antes.") com respostas acolhedoras marcadas `<!-- REVISAR COM A CLÍNICA: texto da resposta -->`
@@ -214,7 +244,15 @@ SorriaWebSite/
 - Localização com mapa Google + dados de contato
 - Footer completo com Instagram (Facebook foi removido — cliente só usa Instagram)
 - Botão flutuante WhatsApp e todos os CTAs "Falar/Agendar pelo WhatsApp" usam o SVG oficial completo (balão + telefone) — não usar o ícone genérico `message-circle` do Lucide
-- Mapa de Localização com pin/marcador nomeado da clínica (embed por busca `q=`, sem necessidade de API key)
+- Mapa de Localização com pin nomeado da clínica (embed por busca `q=`, sem API key). A query é
+  **deliberadamente curta**: `q=Sorria+Instituto+Odontológico,+Brasília&z=17&output=embed`. A ficha
+  da clínica está ativa no Google ("Sorria Instituto Odontologico (Helena Nascimento Pavanelli)",
+  Centro Clinico Sudoeste BLOCO 03/04/05 SALA 238, `-15.8025037, -47.9325397`) e resolve pelo
+  nome + cidade. **Não acrescentar bloco/sala/CEP à query:** já aconteceu duas vezes de uma query
+  "mais completa" (`...Centro Clínico Sudoeste, SHCSW Bloco 3/4/5, Sala 238, Brasília - DF,
+  70673-416`) deixar de geocodificar, e o mapa cair numa visão geral de Brasília sem marcador.
+  Para conferir, basta buscar coordenadas na resposta do embed: se não houver `-15.xxx,-47.xxx`,
+  a query não resolveu. O link "Como chegar" usa a mesma query, pelo mesmo motivo.
 - Animações fade-up nos cards (IntersectionObserver)
 - **Desktop grande (1280px+):** container sobe de 1280px para 1360px, `--section-gap` sobe para
   140px, e o `html{font-size}` sobe de 16px para 18px (+12.5%) — como quase todo o site usa `rem`,
@@ -251,17 +289,11 @@ SorriaWebSite/
    Dra. Helena). Trocar cada `.equipe__photo` por um `<img>` com a foto real.
 3. **Logos dos convênios** — 5 cards aguardando logos oficiais
 4. **Fotos da clínica** — 6 placeholders na galeria
-5. **Iframe Google Maps** — o embed atual usa busca por endereço (`q=`) com o endereço correto;
-   assim que a ficha no Google Meu Negócio estiver ativa, gerar o embed definitivo
-   (Compartilhar > Incorporar mapa, ou `place_id`) para o pin oficial
-6. **CRO-DF** — número do CRO da Dra. Helena (usado no rodapé)
-7. **Guias 02 a 09** — capas, PDFs e páginas JPG dos 8 guias restantes (cada um segue o processo
-   de 3 passos em "Como Adicionar um Novo Guia" acima). `js/guias.js` tem rascunhos de conteúdo
-   de alguns guias que podem ser reaproveitados como referência.
-8. **Respostas das 4 novas perguntas do FAQ** — textos acolhedores marcados com
+5. **CRO-DF** — número do CRO da Dra. Helena (usado no rodapé)
+6. **Respostas das 3 perguntas sensíveis do FAQ** — textos acolhedores marcados com
    `<!-- REVISAR COM A CLÍNICA -->`, pendentes de validação da doutora
-9. **Link do Instagram** — URL real do perfil da clínica
-10. **Fotos dos pacientes nos depoimentos** — Ilma Costa Nascimento, Suzana de Albuquerque, Aline Gonçalves Costa Henrique, Milk Alves (hoje usam iniciais em círculo)
+7. **Link do Instagram** — URL real do perfil da clínica
+8. **Fotos dos pacientes nos depoimentos** — Ilma Costa Nascimento, Suzana de Albuquerque, Aline Gonçalves Costa Henrique, Milk Alves (hoje usam iniciais em círculo)
 
 ## Copyright
 © 2026 Sorria Instituto Odontológico

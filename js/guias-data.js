@@ -1,70 +1,70 @@
 /* Configuração dos Guias de Pós-Atendimento
  *
- * Para adicionar um novo guia:
+ * Os 9 guias estão publicados. A ordem das chaves aqui é a mesma da grade em
+ * guias.html (grade 3x3).
+ *
+ * Para adicionar/atualizar um guia:
  * 1. Criar pasta assets/guias/[slug]/ com:
  *      [slug]-01.jpg … [slug]-NN.jpg  (páginas em ordem, zero à esquerda)
  *      guia-[slug].pdf                (PDF para download)
  *      capa-[slug].jpg                (imagem de capa para o card em guias.html)
- * 2. Adicionar uma entrada neste objeto.
- * 3. Ativar o card em guias.html: trocar href="#" por href="guia.html?g=[slug]"
- *    e substituir o placeholder do card pela tag <img class="guia-cover-card__bg">.
+ * 2. Adicionar uma entrada neste objeto (o campo `paginas` precisa bater com a
+ *    quantidade real de JPGs, senão o visualizador pede imagens inexistentes).
+ * 3. Adicionar o card em guias.html com a capa real e href="guia.html?g=[slug]".
  */
 var GUIAS = {
   'alinhadores-invisiveis': {
-    titulo: 'Guia para Pacientes com Alinhadores Invisíveis',
+    titulo: 'Guia para Alinhadores Invisíveis',
     slug:   'alinhadores-invisiveis',
     paginas: 14,
     pdf:    'guia-alinhadores-invisiveis.pdf'
-  }
-  /* Próximos guias — descomente e preencha ao adicionar cada um:
-  ,
+  },
   'aparelho-ortodontico': {
-    titulo: 'Guia para Pacientes com Aparelho Ortodôntico',
+    titulo: 'Guia para Aparelho Ortodôntico',
     slug:   'aparelho-ortodontico',
-    paginas: 0,
+    paginas: 15,
     pdf:    'guia-aparelho-ortodontico.pdf'
   },
-  'pos-clareamento': {
+  'clareamento': {
     titulo: 'Guia Pós-Clareamento Dental',
-    slug:   'pos-clareamento',
-    paginas: 0,
-    pdf:    'guia-pos-clareamento.pdf'
+    slug:   'clareamento',
+    paginas: 11,
+    pdf:    'guia-clareamento.pdf'
   },
-  'pos-trauma-infantil': {
+  'trauma-dental': {
     titulo: 'Guia Pós-Trauma Dental Infantil',
-    slug:   'pos-trauma-infantil',
-    paginas: 0,
-    pdf:    'guia-pos-trauma-infantil.pdf'
+    slug:   'trauma-dental',
+    paginas: 14,
+    pdf:    'guia-trauma-dental.pdf'
   },
   'placa-contencao': {
-    titulo: 'Guia sobre Placa de Contenção',
+    titulo: 'Guia para Placa de Contenção',
     slug:   'placa-contencao',
-    paginas: 0,
+    paginas: 16,
     pdf:    'guia-placa-contencao.pdf'
   },
   'placa-bruxismo': {
-    titulo: 'Guia sobre Placa de Bruxismo',
+    titulo: 'Guia para Placa Miorrelaxante',
     slug:   'placa-bruxismo',
-    paginas: 0,
+    paginas: 17,
     pdf:    'guia-placa-bruxismo.pdf'
   },
-  'pos-extracao-leite': {
+  'pos-extracao': {
     titulo: 'Guia Pós-Extração de Dente de Leite',
-    slug:   'pos-extracao-leite',
-    paginas: 0,
-    pdf:    'guia-pos-extracao-leite.pdf'
+    slug:   'pos-extracao',
+    paginas: 15,
+    pdf:    'guia-pos-extracao.pdf'
   },
   'expansor': {
-    titulo: 'Guia sobre a Instalação do Expansor',
+    titulo: 'Guia Pós-Instalação do Expansor',
     slug:   'expansor',
-    paginas: 0,
+    paginas: 15,
     pdf:    'guia-expansor.pdf'
   },
-  'erupcao-dentes-leite': {
-    titulo: 'Guia sobre a Sequência de Erupção dos Dentes de Leite',
-    slug:   'erupcao-dentes-leite',
-    paginas: 0,
-    pdf:    'guia-erupcao-dentes-leite.pdf'
+  'primeiros-dentinhos': {
+    titulo: 'Guia Primeiros Dentinhos',
+    slug:   'primeiros-dentinhos',
+    paginas: 16,
+    pdf:    'guia-primeiros-dentinhos.pdf'
   }
-  */
 };
