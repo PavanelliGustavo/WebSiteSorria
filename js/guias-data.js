@@ -25,11 +25,11 @@ var GUIAS = {
     paginas: 15,
     pdf:    'guia-aparelho-ortodontico.pdf'
   },
-  'clareamento': {
-    titulo: 'Guia Pós-Clareamento Dental',
-    slug:   'clareamento',
-    paginas: 11,
-    pdf:    'guia-clareamento.pdf'
+  'placa-bruxismo': {
+    titulo: 'Guia para Placa Miorrelaxante',
+    slug:   'placa-bruxismo',
+    paginas: 17,
+    pdf:    'guia-placa-bruxismo.pdf'
   },
   'trauma-dental': {
     titulo: 'Guia Pós-Trauma Dental Infantil',
@@ -37,17 +37,17 @@ var GUIAS = {
     paginas: 14,
     pdf:    'guia-trauma-dental.pdf'
   },
-  'placa-contencao': {
-    titulo: 'Guia para Placa de Contenção',
-    slug:   'placa-contencao',
-    paginas: 16,
-    pdf:    'guia-placa-contencao.pdf'
+  'clareamento': {
+    titulo: 'Guia Pós-Clareamento Dental',
+    slug:   'clareamento',
+    paginas: 11,
+    pdf:    'guia-clareamento.pdf'
   },
-  'placa-bruxismo': {
-    titulo: 'Guia para Placa Miorrelaxante',
-    slug:   'placa-bruxismo',
-    paginas: 17,
-    pdf:    'guia-placa-bruxismo.pdf'
+  'expansor': {
+    titulo: 'Guia Pós-Instalação do Expansor',
+    slug:   'expansor',
+    paginas: 15,
+    pdf:    'guia-expansor.pdf'
   },
   'pos-extracao': {
     titulo: 'Guia Pós-Extração de Dente de Leite',
@@ -55,11 +55,11 @@ var GUIAS = {
     paginas: 15,
     pdf:    'guia-pos-extracao.pdf'
   },
-  'expansor': {
-    titulo: 'Guia Pós-Instalação do Expansor',
-    slug:   'expansor',
-    paginas: 15,
-    pdf:    'guia-expansor.pdf'
+  'placa-contencao': {
+    titulo: 'Guia para Placa de Contenção',
+    slug:   'placa-contencao',
+    paginas: 16,
+    pdf:    'guia-placa-contencao.pdf'
   },
   'primeiros-dentinhos': {
     titulo: 'Guia Primeiros Dentinhos',

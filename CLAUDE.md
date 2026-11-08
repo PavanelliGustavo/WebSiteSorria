@@ -160,10 +160,27 @@ SorriaWebSite/
   - Tecnologia: os TRÊS cards no mesmo formato, empilhados em 1 coluna
     (`grid-template-columns: 1fr`). O antigo 3º card "largo" (`grid-column: 1 / -1`) foi removido.
   - Convênios: layout 2+2+1 — o `.convenios__grid` vira `flex` com `flex-wrap` + `justify-content: center` e TODOS os `.convenio-item` recebem `flex: 0 0 calc(50% - 6px)`, garantindo largura idêntica nos 5 cards (o 5º centraliza sozinho na última fileira). Desktop continua 3+2 flex com reset explícito no 768px+ breakpoint.
-  - Carrosséis (galeria + depoimentos): usam **scroll-snap nativo** no mobile (`overflow-x: auto` + `scroll-snap-type: x mandatory` no track, `scroll-snap-align: start` nos slides). **Atenção:** a regra base do `.carousel__track` é `touch-action: pan-y`, que bloqueia o arraste horizontal por toque — o bloco mobile precisa sobrescrever para `touch-action: pan-x`, senão o swipe com o dedo não funciona (foi exatamente essa a causa do bug). O `main.js` detecta o modo via `_isScrollMode()` (`getComputedStyle(track).overflowX !== 'visible'`): em scroll mode o `goTo()` usa `scrollTo` e os dots sincronizam por evento `scroll`; no desktop segue o modo `transform` com os handlers de toque antigos.
+  - Carrosséis (galeria + depoimentos): usam **scroll-snap nativo** no mobile (`overflow-x: auto` + `scroll-snap-type: x mandatory` no track, `scroll-snap-align: start` nos slides). O `main.js` detecta o modo via `_isScrollMode()` (`getComputedStyle(track).overflowX !== 'visible'`): em scroll mode o `goTo()` usa `scrollTo` e os dots sincronizam por evento `scroll`; no desktop segue o modo `transform` com os handlers de toque antigos. O `goTo()` calcula o destino como `slides[idx].offsetLeft - slides[0].offsetLeft`, e não somando larguras — assim não quebra quando o trilho tem padding lateral.
+  - **`touch-action` nos 4 carrosséis horizontais — tem que listar as DUAS direções.**
+    A regra base do `.carousel__track` é `touch-action: pan-y`, que bloqueia o arraste
+    horizontal por toque; o bloco mobile sobrescreve com **`touch-action: pan-x pan-y`**.
+    Já erramos esse valor duas vezes em sentidos opostos: só `pan-y` matava o swipe do
+    carrossel, e depois só `pan-x` prendia a página (um gesto vertical iniciado sobre o
+    trilho deixava de rolar o ancestral, e o usuário tinha que tocar fora para descer).
+    Com as duas direções o navegador decide pela direção do gesto. **Não há
+    `preventDefault()` envolvido:** o `touchmove` do `_bindTouch()` dá early-return quando
+    `_isScrollMode()` é true, então no mobile o scroll é 100% nativo.
+  - **Respiro lateral dos carrosséis** (`--container-px`, para alinhar com o resto da
+    página): cada trilho recebe `padding-inline-start` **e** `scroll-padding-inline`. O
+    `scroll-padding` é o que importa — sem ele o 1º card nasce afastado, mas todos os
+    seguintes encostam na borda da tela ao fazer snap. Para o respiro **final**, galeria e
+    depoimentos se apoiam no `margin-right` que todo slide já tem (inclusive o último),
+    enquanto equipe e especialidades usam `gap` e por isso ganham um spacer
+    `::after { flex: 0 0 var(--container-px) }` — o `padding-inline-end` do contêiner é
+    ignorado por alguns navegadores no overflow de flex, então não dá para confiar nele.
   - **Equipe e Especialidades viram carrossel** (`.equipe__grid` / `.especialidades__grid`):
     reaproveitam o mesmo mecanismo nativo — `display:flex` + `overflow-x:auto` +
-    `scroll-snap-type: x mandatory` + `touch-action: pan-x`, com `scroll-snap-align: start` nos
+    `scroll-snap-type: x mandatory` + `touch-action: pan-x pan-y`, com `scroll-snap-align: start` nos
     filhos (`.equipe__photo` a 68% e `.especialidade-card` a 88% da largura, deixando prévia do
     próximo). **Sem JS**: não são instâncias da classe `Carousel` justamente para não aplicarem
     `transform` no desktop, onde as duas seções voltam a ser grade lado a lado. O
@@ -193,9 +210,11 @@ SorriaWebSite/
 - Galeria: carrossel touch (mobile) / grid 3 colunas (desktop). **Não há rótulo fixo sob as
   fotos** — a informação aparece só no hover, dentro do `.galeria__overlay`, em duas linhas: o
   **sentimento** do ambiente (`.galeria__overlay-sentimento`, dourado claro itálico) e o nome do
-  ambiente (`.galeria__overlay-ambiente`, caixa alta). Pares: Recepção→Acolhimento,
-  Sala Infantil→Confiança, Consultório→Tecnologia, Área de Espera→Excelência,
-  Equipamentos→Relacionamento, Fachada→Planejamento. O overlay usa `--gold-light` (não `--gold`)
+  ambiente (`.galeria__overlay-ambiente`, caixa alta). **Ordem das fotos** (igual no grid do
+  desktop e na rolagem do carrossel mobile), com o par de sentimento de cada uma — ao
+  reordenar, o sentimento acompanha a IMAGEM, nunca a posição:
+  1. Fachada → Planejamento · 2. Recepção → Acolhimento · 3. Sala Infantil → Confiança ·
+  4. Área de Espera → Excelência · 5. Consultório → Tecnologia · 6. Equipamentos → Relacionamento. O overlay usa `--gold-light` (não `--gold`)
   porque fica sobre fundo escuro `rgba(13,13,13,0.55)`. **No mobile não há hover nem overlay** —
   os slides do carrossel mostram só a foto, e isso é intencional: não reintroduzir legenda fixa.
   A seção fecha com `.galeria__fecho`: "É assim que acompanhamos famílias por gerações."
@@ -221,17 +240,24 @@ SorriaWebSite/
     mensagem amigável e link de volta.
   - **Os 9 guias publicados** (slug → páginas → título; o campo `paginas` precisa bater com a
     quantidade real de JPGs, senão o visualizador pede imagens inexistentes):
-    | slug | páginas | título |
-    |---|---|---|
-    | `alinhadores-invisiveis` | 14 | Guia para Alinhadores Invisíveis |
-    | `aparelho-ortodontico` | 15 | Guia para Aparelho Ortodôntico |
-    | `clareamento` | 11 | Guia Pós-Clareamento Dental |
-    | `trauma-dental` | 14 | Guia Pós-Trauma Dental Infantil |
-    | `placa-contencao` | 16 | Guia para Placa de Contenção |
-    | `placa-bruxismo` | 17 | Guia para Placa Miorrelaxante |
-    | `pos-extracao` | 15 | Guia Pós-Extração de Dente de Leite |
-    | `expansor` | 15 | Guia Pós-Instalação do Expansor |
-    | `primeiros-dentinhos` | 16 | Guia Primeiros Dentinhos |
+    A ordem abaixo é a da grade (3x3, lendo da esquerda para a direita) e foi definida pela
+    **simetria visual das capas** (fundos escuros nas quinas de cima, claros embaixo) — não é
+    alfabética nem temática, então não "arrumar". `guias.html` e as chaves de `GUIAS` ficam
+    nessa mesma ordem.
+    | # | slug | páginas | título |
+    |---|---|---|---|
+    | 1 | `alinhadores-invisiveis` | 14 | Guia para Alinhadores Invisíveis |
+    | 2 | `aparelho-ortodontico` | 15 | Guia para Aparelho Ortodôntico |
+    | 3 | `placa-bruxismo` | 17 | Guia para Placa Miorrelaxante |
+    | 4 | `trauma-dental` | 14 | Guia Pós-Trauma Dental Infantil |
+    | 5 | `clareamento` | 11 | Guia Pós-Clareamento Dental |
+    | 6 | `expansor` | 15 | Guia Pós-Instalação do Expansor |
+    | 7 | `pos-extracao` | 15 | Guia Pós-Extração de Dente de Leite |
+    | 8 | `placa-contencao` | 16 | Guia para Placa de Contenção |
+    | 9 | `primeiros-dentinhos` | 16 | Guia Primeiros Dentinhos |
+    Os cards **não têm rótulo numérico** ("GUIA 0X"): como todos têm capa real e a capa já
+    traz o título, o overlay não é renderizado. Logo, reordenar a grade não exige renumerar
+    nada — basta mover os blocos `<a>`.
     Dois títulos foram renomeados para bater com a capa aprovada: "Guia sobre Placa de Bruxismo"
     → **"Guia para Placa Miorrelaxante"** (o slug segue `placa-bruxismo`) e "Guia sobre a
     Sequência de Erupção dos Dentes de Leite" → **"Guia Primeiros Dentinhos"**.

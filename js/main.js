@@ -246,11 +246,10 @@ class Carousel {
       // Modo scroll-snap (mobile): scrollTo em vez de transform.
       // Limpa qualquer transform inline herdado do modo desktop (ex.: resize).
       if (this.track.style.transform) this.track.style.transform = '';
-      let scrollLeft = 0;
-      for (let i = 0; i < idx; i++) {
-        scrollLeft += this.slides[i].offsetWidth +
-          parseInt(getComputedStyle(this.slides[i]).marginRight || 0, 10);
-      }
+      // Distância entre o slide alvo e o primeiro: já embute larguras, gaps e
+      // margens, e não depende do padding/scroll-padding do trilho (que existe
+      // para dar respiro lateral) — ao contrário de somar offsetWidth manualmente.
+      const scrollLeft = this.slides[idx].offsetLeft - this.slides[0].offsetLeft;
       if (animate) {
         this.track.scrollTo({ left: scrollLeft, behavior: 'smooth' });
       } else {

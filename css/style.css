@@ -1872,10 +1872,17 @@ address {
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;        /* Firefox */
-    /* CRÍTICO: a base usa `pan-y`, que bloqueia o arraste horizontal por toque
-       e impede o scroll nativo. `pan-x` libera o swipe do dedo no carrossel
-       (o gesto vertical continua rolando a página normalmente). */
-    touch-action: pan-x;
+    /* A base usa `pan-y`, que bloqueia o arraste horizontal por toque e impede o
+       scroll nativo — por isso precisa ser sobrescrito aqui. Precisa listar as
+       DUAS direções: só `pan-x` libera o swipe do carrossel mas prende a página,
+       porque um gesto vertical iniciado sobre o trilho deixa de rolar até o
+       ancestral. `pan-x pan-y` deixa o navegador decidir pela direção do gesto. */
+    touch-action: pan-x pan-y;
+    /* Respiro lateral no início da rolagem... */
+    padding-inline-start: var(--container-px);
+    /* ...e `scroll-padding` para que o snap respeite esse respiro: sem isso o
+       1º card nasce afastado mas todos os seguintes encostam na borda da tela. */
+    scroll-padding-inline: var(--container-px);
   }
   .carousel__track::-webkit-scrollbar {
     display: none;                /* Chrome / Safari / Edge */
@@ -1884,17 +1891,20 @@ address {
     scroll-snap-align: start;
     flex-shrink: 0;
   }
-  /* Depoimentos: sem padding inline no mobile (não precisa de centering por scroll-snap) */
+  /* Depoimentos: só o respiro inicial. O final vem do `margin-right` que todo
+     card já tem (inclusive o último) — mais confiável que `padding-inline-end`,
+     que alguns navegadores ignoram no overflow de contêiner flex. */
   .depoimentos__carousel .carousel__track {
-    padding-inline: 0;
+    padding-inline-start: var(--container-px);
+    padding-inline-end: 0;
   }
 
   /* 6 · EQUIPE e ESPECIALIDADES — viram carrossel horizontal no mobile.
      Mesmo mecanismo dos demais carrosséis: scroll-snap nativo por toque, sem JS.
      O conteúdo é idêntico ao do desktop; só o arranjo muda.
-     `touch-action: pan-x` é essencial (ver bloco 5). O `margin-inline` negativo
-     casado com o `padding-inline` faz o trilho sangrar até a borda da tela,
-     mantendo o primeiro card alinhado ao container. */
+     `touch-action: pan-x pan-y` é essencial (ver bloco 5). O `margin-inline`
+     negativo casado com o `padding-inline-start` faz o trilho sangrar até a borda
+     da tela mantendo o primeiro card alinhado ao container. */
   .equipe__grid,
   .especialidades__grid {
     display: flex;
@@ -1903,14 +1913,23 @@ address {
     gap: 14px;
     max-width: none;
     margin-inline: calc(var(--container-px) * -1);
-    padding-inline: var(--container-px);
+    padding-inline-start: var(--container-px);
     padding-block: 8px; /* espaço para a sombra dos cards não ser cortada */
     overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--container-px);
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    touch-action: pan-x;
+    touch-action: pan-x pan-y;
+  }
+  /* Estes dois trilhos usam `gap` (não `margin-right` por item), então o último
+     card não tem respiro final. Um spacer resolve de forma consistente — o
+     `padding-inline-end` do contêiner é ignorado por alguns navegadores aqui. */
+  .equipe__grid::after,
+  .especialidades__grid::after {
+    content: '';
+    flex: 0 0 var(--container-px);
   }
   .equipe__grid::-webkit-scrollbar,
   .especialidades__grid::-webkit-scrollbar {

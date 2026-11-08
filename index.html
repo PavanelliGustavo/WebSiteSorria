@@ -383,6 +383,13 @@
       <!-- DESKTOP: grid -->
       <div class="galeria__grid-wrap container" aria-label="Fotos da clínica">
         <div class="galeria__grid">
+          <div class="galeria__item" tabindex="0" role="img" aria-label="Fachada da clínica">
+            <div class="galeria__placeholder"><!-- SUBSTITUIR: fachada --><span>Fachada</span></div>
+            <div class="galeria__overlay" aria-hidden="true">
+              <span class="galeria__overlay-sentimento">Planejamento</span>
+              <span class="galeria__overlay-ambiente">Fachada</span>
+            </div>
+          </div>
           <div class="galeria__item" tabindex="0" role="img" aria-label="Recepção da clínica">
             <div class="galeria__placeholder"><!-- SUBSTITUIR: foto da recepção --><span>Recepção</span></div>
             <div class="galeria__overlay" aria-hidden="true">
@@ -397,18 +404,18 @@
               <span class="galeria__overlay-ambiente">Sala Infantil</span>
             </div>
           </div>
-          <div class="galeria__item" tabindex="0" role="img" aria-label="Consultório principal">
-            <div class="galeria__placeholder"><!-- SUBSTITUIR: consultório --><span>Consultório</span></div>
-            <div class="galeria__overlay" aria-hidden="true">
-              <span class="galeria__overlay-sentimento">Tecnologia</span>
-              <span class="galeria__overlay-ambiente">Consultório</span>
-            </div>
-          </div>
           <div class="galeria__item" tabindex="0" role="img" aria-label="Área de espera">
             <div class="galeria__placeholder"><!-- SUBSTITUIR: área de espera --><span>Área de Espera</span></div>
             <div class="galeria__overlay" aria-hidden="true">
               <span class="galeria__overlay-sentimento">Excelência</span>
               <span class="galeria__overlay-ambiente">Área de Espera</span>
+            </div>
+          </div>
+          <div class="galeria__item" tabindex="0" role="img" aria-label="Consultório principal">
+            <div class="galeria__placeholder"><!-- SUBSTITUIR: consultório --><span>Consultório</span></div>
+            <div class="galeria__overlay" aria-hidden="true">
+              <span class="galeria__overlay-sentimento">Tecnologia</span>
+              <span class="galeria__overlay-ambiente">Consultório</span>
             </div>
           </div>
           <div class="galeria__item" tabindex="0" role="img" aria-label="Equipamentos modernos">
@@ -418,13 +425,6 @@
               <span class="galeria__overlay-ambiente">Equipamentos</span>
             </div>
           </div>
-          <div class="galeria__item" tabindex="0" role="img" aria-label="Fachada da clínica">
-            <div class="galeria__placeholder"><!-- SUBSTITUIR: fachada --><span>Fachada</span></div>
-            <div class="galeria__overlay" aria-hidden="true">
-              <span class="galeria__overlay-sentimento">Planejamento</span>
-              <span class="galeria__overlay-ambiente">Fachada</span>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -432,22 +432,22 @@
       <div class="carousel galeria__carousel" id="galeriaCarousel" aria-label="Carrossel de fotos da clínica" role="region">
         <div class="carousel__track" id="galeriaTrack">
           <div class="carousel__slide">
+            <div class="galeria__placeholder"><span>Fachada</span></div>
+          </div>
+          <div class="carousel__slide">
             <div class="galeria__placeholder"><span>Recepção</span></div>
           </div>
           <div class="carousel__slide">
             <div class="galeria__placeholder"><span>Sala Infantil</span></div>
           </div>
           <div class="carousel__slide">
-            <div class="galeria__placeholder"><span>Consultório</span></div>
-          </div>
-          <div class="carousel__slide">
             <div class="galeria__placeholder"><span>Área de Espera</span></div>
           </div>
           <div class="carousel__slide">
-            <div class="galeria__placeholder"><span>Equipamentos</span></div>
+            <div class="galeria__placeholder"><span>Consultório</span></div>
           </div>
           <div class="carousel__slide">
-            <div class="galeria__placeholder"><span>Fachada</span></div>
+            <div class="galeria__placeholder"><span>Equipamentos</span></div>
           </div>
         </div>
         <div class="carousel__dots" id="galeriaDots" role="tablist" aria-label="Navegação do carrossel"></div>
