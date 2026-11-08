@@ -279,7 +279,23 @@ SorriaWebSite/
   70673-416`) deixar de geocodificar, e o mapa cair numa visão geral de Brasília sem marcador.
   Para conferir, basta buscar coordenadas na resposta do embed: se não houver `-15.xxx,-47.xxx`,
   a query não resolveu. O link "Como chegar" usa a mesma query, pelo mesmo motivo.
-- Animações fade-up nos cards (IntersectionObserver)
+- Animações fade-up nos cards (IntersectionObserver, `initFadeUp` no `main.js`). A classe
+  `.fade-up` começa em `opacity: 0` e só é desenhada ao ganhar `.visible`, o que exige
+  cuidado com **carrosséis horizontais**: um card que aparece só como "pontinha" na borda
+  (~9% da largura) nunca atinge limiar nenhum, e um card totalmente fora da área visível do
+  trilho é recortado pelo `overflow` e **não intersecta a viewport de jeito nenhum** — ficava
+  ocupando espaço sem desenhar nada, escondendo do usuário que havia mais conteúdo ao lado.
+  Por isso o observer tem dois modos:
+  - **Trilhos listados em `GRUPOS`** (`.equipe__grid, .especialidades__grid, .carousel__track`):
+    observa-se o TRILHO, e quando ele entra na tela todos os filhos `.fade-up` recebem
+    `.visible` de uma vez (com o stagger de 80ms). É o que garante a pontinha desenhada sem
+    interação. **Ao criar um carrossel novo, incluir o trilho dele em `GRUPOS`.**
+  - **Demais elementos** (headers de seção, `.tec-card`, os 9 cards de `guias.html`): seguem
+    observados um a um, revelando progressivamente conforme a rolagem vertical — é o
+    comportamento desejado onde o empilhamento é vertical.
+  O `threshold` é **0** (antes 0.12, que era a causa direta do bug) e serve de defesa extra
+  para qualquer item parcialmente visível. Hoje só equipe e especialidades têm filhos
+  `.fade-up` dentro de trilho; galeria e depoimentos não animam seus slides.
 - **Desktop grande (1280px+):** container sobe de 1280px para 1360px, `--section-gap` sobe para
   140px, e o `html{font-size}` sobe de 16px para 18px (+12.5%) — como quase todo o site usa `rem`,
   isso escala headlines/subtítulos/corpo proporcionalmente sem precisar editar seletor por

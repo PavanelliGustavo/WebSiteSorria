@@ -413,8 +413,16 @@ class Carousel {
 
 /* ── ANIMAÇÕES DE ENTRADA (IntersectionObserver) ─────────── */
 (function initFadeUp() {
-  const elements = $$('.fade-up, .tec-card, .especialidade-card, .convenio-item');
-  if (!elements.length) return;
+  /* Trilhos cujos filhos são revelados TODOS DE UMA VEZ quando o trilho entra na
+     tela, em vez de um a um. São os contêineres que viram carrossel horizontal no
+     mobile: o card seguinte aparece só como uma "pontinha" na borda (~9% da sua
+     largura), nunca intersecta o bastante para disparar sozinho e ficava preso em
+     `opacity: 0` — ocupando espaço sem desenhar nada, de modo que o usuário não
+     tinha como perceber que havia mais conteúdo ao lado. Depois de arrastar uma
+     vez ele era revelado e não voltava a sumir, o que explicava o sintoma
+     aparecer só no primeiro carregamento. Ao criar um carrossel novo, incluir o
+     trilho dele aqui. */
+  const GRUPOS = '.equipe__grid, .especialidades__grid, .carousel__track';
 
   // Adiciona classe fade-up em elementos que devem animar
   $$('.tec-card, .especialidade-card, .section__header, .equipe__photo').forEach(el => {
@@ -422,24 +430,43 @@ class Carousel {
   });
 
   const all = $$('.fade-up');
+  if (!all.length) return;
+
+  function revelar(el, index) {
+    el.style.transitionDelay = `${Math.min(index * 80, 400)}ms`;
+    el.classList.add('visible');
+  }
 
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        // Stagger delay para cards em grid
-        const siblings = [...entry.target.parentElement.children].filter(c => c.classList.contains('fade-up'));
-        const index = siblings.indexOf(entry.target);
-        entry.target.style.transitionDelay = `${Math.min(index * 80, 400)}ms`;
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const alvo = entry.target;
+      observer.unobserve(alvo);
+      if (alvo.matches(GRUPOS)) {
+        // Revela o grupo inteiro, inclusive os cards fora da área visível do trilho
+        $$(':scope > .fade-up', alvo).forEach(revelar);
+      } else {
+        const irmaos = [...alvo.parentElement.children]
+          .filter(c => c.classList.contains('fade-up'));
+        revelar(alvo, irmaos.indexOf(alvo));
       }
     });
   }, {
-    threshold: 0.12,
+    /* threshold 0: basta 1px visível. Com o 0.12 anterior, um card parcialmente
+       visível na borda do carrossel nunca atingia o limiar. Mantido junto do
+       agrupamento acima como defesa extra para qualquer item parcial. */
+    threshold: 0,
     rootMargin: '0px 0px -40px 0px'
   });
 
-  all.forEach(el => observer.observe(el));
+  /* Filho de grupo não é observado individualmente — observa-se o grupo. */
+  const grupos = new Set();
+  all.forEach(el => {
+    const pai = el.parentElement;
+    if (pai && pai.matches(GRUPOS)) grupos.add(pai);
+    else observer.observe(el);
+  });
+  grupos.forEach(g => observer.observe(g));
 })();
 
 /* ── DEPOIMENTOS CARROSSEL — centralizar no desktop ──────── */
